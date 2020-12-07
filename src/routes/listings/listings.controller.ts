@@ -1,5 +1,5 @@
-import { Controller, Res, Post, Logger, Get, Body } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiBody, ApiInternalServerErrorResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { Controller, Res, Post, Logger, Get, Body, Query } from '@nestjs/common';
+import { ApiBadRequestResponse, ApiBody, ApiInternalServerErrorResponse, ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { Listing } from 'src/Entities/Listing.entity';
 import { Return } from 'src/utils/ReturnObject';
@@ -14,11 +14,20 @@ export class ListingsController {
 
     @Get()
     @ApiTags('Listings')
+    @ApiQuery({ description: 'the query for searching for example by zip_code of state'})
     @ApiOkResponse({ description: 'the listing has been added' })
     @ApiBadRequestResponse({ description: 'There was an error while adding the listing ' })
     @ApiInternalServerErrorResponse({ description: 'Internal server error occured' })
-    async getListings(@Res() res: Response): Promise<void> {
-        res.status(200).send({ msg: 'Hello there people' })
+    async getListings(@Res() res: Response, @Query() query: Partial<Listing>): Promise<void> {
+        if (query === null || query === undefined) {
+            res.status(400).send(Return({
+                error: true,
+                statusCode: 400,
+                errorMessage: 'No payload found'
+            }))
+        }
+        const result = await this.crudService.getServices(query);
+        res.status(result.statusCode).send(result);
     }
 
     @Post('add')

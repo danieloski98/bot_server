@@ -44,4 +44,33 @@ export class CrudService {
             });
         }
     }
+
+    async getServices(payload: Partial<Listing>): Promise<IReturnType> {
+        try {
+            // find the services
+            const services = await this.listingRepo.find({ where: payload });
+
+            if (services.length < 1) {
+                return Return({
+                    error: true,
+                    statusCode: 400,
+                    errorMessage: 'No service found'
+                });
+            } else {
+                return Return({
+                    error: true,
+                    statusCode: 200,
+                    data: services,
+                    successMessage: 'Services found',
+                });
+            }
+        } catch (error) {
+            return Return({
+                error: true,
+                statusCode: 500,
+                errorMessage: 'Internal server error',
+                trace: error,
+            });
+        }
+    }
 }

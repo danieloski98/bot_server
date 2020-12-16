@@ -8,4 +8,5 @@ export const ListingschemaValidator = joi.object({
     email: joi.string().email().required(),
     phone: joi.string().required(),
     website: joi.string(),
+    business_name: joi.string().required()
 })

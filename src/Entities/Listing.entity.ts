@@ -8,7 +8,7 @@ export class Listing {
         type: Number,
         required: false
     })
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn("uuid")
     id: number;
 
     @ApiProperty({
@@ -34,4 +34,23 @@ export class Listing {
     })
     @Column()
     service_type: string;
+
+    @ApiProperty({
+        type: String
+    })
+    @Column()
+    email: string;
+
+    @ApiProperty({
+        type: String
+    })
+    @Column()
+    phone: string;
+
+    @ApiProperty({
+        type: String,
+        required: false
+    })
+    @Column()
+    website: string;
 }

@@ -53,4 +53,11 @@ export class Listing {
     })
     @Column()
     website: string;
+
+    @ApiProperty({
+        type: String,
+        required: false
+    })
+    @Column()
+    business_name: string;
 }

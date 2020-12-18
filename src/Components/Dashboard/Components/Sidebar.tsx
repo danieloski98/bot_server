@@ -35,8 +35,8 @@ export default function Sidebar() {
 
             <div 
                 onClick={() => changeLocation('')} 
-                className={loc === "/dashboard" ? Active : InActive }>
-                <Dashboard color={loc === "/dashboard" ? "white": "#3E5351"} />
+                className={loc === "/dashboard/" || loc === '/dashboard' ? Active : InActive }>
+                <Dashboard color={loc === "/dashboard/" || loc === '/dashboard' ? "white": "#3E5351"} />
                 <p className=" text-xs font-Rubik_Regular ml-4">Dashboard</p>
             </div>
 

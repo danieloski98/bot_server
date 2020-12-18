@@ -1,8 +1,9 @@
 import React from 'react'
 import { Spinner,InputGroup, InputLeftElement, Input } from '@chakra-ui/react'
 import EmailIcon from '../../assets/icons/EmailIcon'
+import { useHistory } from 'react-router-dom'
 
-const LostForm = (props: {loading: boolean}) => {
+const LostForm = (props: {loading: boolean, send: Function}) => {
     if (props.loading) {
         return (
             <section className="w-full flex justify-center">
@@ -26,7 +27,9 @@ const LostForm = (props: {loading: boolean}) => {
                         <Input variant="filled" type="email" />
                     </InputGroup>
 
-                    <button className="bg-green-700 text-white h-12 rounded mt-5">Send Reset Link</button>
+                    <button 
+                    onClick={() => props.send()}
+                    className="bg-green-700 text-white h-12 rounded mt-5">Send Reset Link</button>
                 </div>
             </section>
         )
@@ -35,25 +38,37 @@ const LostForm = (props: {loading: boolean}) => {
 }
 
 const EmailSent = () => {
+    const history = useHistory();
+
     return (
         <section className="w-full flex flex-col items-center">
             <h1 className="mb-8 font-Rubik_Bold text-xl">You've Got Mail</h1>
             <EmailIcon />
             <p className="text-center mt-5">A password reset link has been sent to your email address. Please check your inbox or spam.</p>
-            <button className="bg-green-700 text-white h-12 w-full text-sm rounded mt-5">Back To Log In Page</button>
+            <button 
+            onClick={() => history.push('/resetpassword')}
+            className="bg-green-700 text-white h-12 w-full text-sm rounded mt-5">Back To Log In Page</button>
         </section>
     )
 }
 
 export default function Form() {
-    const [loading, setLoading] = React.useState(true);
-    const [emailSent, setEmailSent] = React.useState(true);
+    const [loading, setLoading] = React.useState(false);
+    const [emailSent, setEmailSent] = React.useState(false);
+
+    const send = () => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+            setEmailSent(true)
+        }, 5000)
+    }
 
     return (
         <section>
             {
                 emailSent ?
-                (<EmailSent />): (<LostForm loading={loading} />)
+                (<EmailSent />): (<LostForm loading={loading} send={send} />)
             }
         </section>
     )

@@ -3,8 +3,10 @@ import { InputGroup, InputLeftElement, InputRightElement, Input} from '@chakra-u
 import Lock from '../../assets/icons/Lock'
 import Envelope from '../../assets/icons/Envelope'
 import Eye from '../../assets/icons/Eye'
+import { useHistory } from 'react-router-dom'
 
 export default function Form() {
+    const history = useHistory();
     return (
         <div>
             <h1 className="font-Rubik_Bold text-xl">Welcome Back</h1>
@@ -33,9 +35,13 @@ export default function Form() {
                 </InputGroup>
             </div>
 
-            <p className="text-right font-Rubik_Medium text-sm text-green-700 mt-4">Forgot Password</p>
+            <p 
+            onClick={() => history.push('/forgotpassword')}
+            className="text-right font-Rubik_Medium text-sm text-green-700 mt-4 cursor-pointer">Forgot Password</p>
 
-            <button className="w-full h-12 mt-4 font-Rubik_Regular text-sm rounded text-white bg-green-700">Login</button>
+            <button 
+            onClick={() => history.push('/dashboard')}
+            className="w-full h-12 mt-4 font-Rubik_Regular text-sm rounded text-white bg-green-700">Login</button>
         </div>
     )
 }

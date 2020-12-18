@@ -2,6 +2,7 @@ import React from 'react'
 import { Spinner, InputGroup, InputLeftElement, InputRightElement, Input } from '@chakra-ui/react'
 import Lock from '../../assets/icons/Lock'
 import Eye from '../../assets/icons/Eye'
+import { useHistory } from 'react-router-dom'
 
 const Form = (props: {action: Function}) => {
     return (
@@ -43,10 +44,15 @@ const Loader = () => {
 
 export default function ResetForm() {
     const [loading, setLoading] = React.useState(false);
+    const history = useHistory();
 
     const reset = () => {
         setLoading(true);
-        setTimeout(() => setLoading(false), 4000)
+        
+        setTimeout(() => {
+            setLoading(false);
+            history.push('/login')
+        }, 4000);
     }
     return (
        <section>

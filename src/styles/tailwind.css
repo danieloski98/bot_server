@@ -1,0 +1,22 @@
+
+@font-face{
+    src: url(../assets/fonts/Rubik-Bold.ttf);
+    font-family: 'Rubik_Bold';
+}
+
+@font-face {
+    src: url(../assets/fonts/Rubik-Medium.ttf);
+    font-family: 'Rubik_Medium';
+}
+
+@font-face {
+    src: url(../assets/fonts/Rubik-Regular.ttf);
+    font-family: 'Rubik_Regular';
+}
+
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+

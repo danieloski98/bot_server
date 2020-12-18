@@ -1,6 +1,5 @@
-import { InputGroup, InputLeftElement, Input, Select } from '@chakra-ui/react'
+import { Select } from '@chakra-ui/react'
 import React from 'react'
-import { FiSearch } from 'react-icons/fi'
 import ListingCard from '../Components/ListingCard'
 
 export default function Listings() {

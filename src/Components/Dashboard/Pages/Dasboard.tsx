@@ -1,5 +1,4 @@
 import React from 'react'
-import Help from '../../../assets/icons/Help'
 import ListingCard from '../Components/ListingCard'
 import StatCard from '../Components/StatCard'
 

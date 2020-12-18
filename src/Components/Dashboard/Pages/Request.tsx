@@ -1,5 +1,5 @@
 import React from 'react'
-import { Spinner, InputGroup, InputLeftElement, Input, Select } from '@chakra-ui/react'
+import { InputGroup, InputLeftElement, Input, Select } from '@chakra-ui/react'
 import { FiSearch } from 'react-icons/fi'
 import RequestCard from '../../Dashboard/Components/RequestCard'
 

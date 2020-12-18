@@ -1,5 +1,7 @@
 import React from 'react'
 import Help from '../../../assets/icons/Help'
+import ListingCard from '../Components/ListingCard'
+import StatCard from '../Components/StatCard'
 
 export default function Dasboard() {
     return (
@@ -9,29 +11,11 @@ export default function Dasboard() {
 
             <div className="activities w-full grid grid-cols-3 gap-3 mt-4">
 
-                <div className="w-72 h-24 rounded-lg bg-gray-100 p-5 flex flex-col">
-                    <div className="flex justify-between">
-                        <p className="font-Rubik_Regular text-sm">Registered Businesses</p>
-                        <Help />
-                    </div>
-                    <p className="text-lg font-Rubik-Bold font-bold mt-3">30,938</p>
-                </div>
+                <StatCard header="Registered Businesses" count={30764} />
 
-                <div className="w-72 h-24 rounded-lg bg-gray-100 p-5 flex flex-col">
-                    <div className="flex justify-between">
-                        <p className="font-Rubik_Regular text-sm">Requests Received</p>
-                        <Help />
-                    </div>
-                    <p className="text-lg font-Rubik-Bold font-bold mt-3">700</p>
-                </div>
+                <StatCard header="Request Recieved" count={700} />
 
-                <div className="w-72 h-24 rounded-lg bg-gray-100 p-5 flex flex-col">
-                    <div className="flex justify-between">
-                        <p className="font-Rubik_Regular text-sm">Approved Requests</p>
-                        <Help />
-                    </div>
-                    <p className="text-lg font-Rubik-Bold font-bold mt-3">900</p>
-                </div>
+                <StatCard header="Approved Request" count={900} />
                 
 
             </div>
@@ -44,50 +28,11 @@ export default function Dasboard() {
 
             <div className="recent grid grid-cols-3 gap-2 mt-5">
 
-                <div className="w-72 h-56 rounded-lg bg-gray-100 p-5 flex flex-col">
-                    <div className="flex justify-between">
-                        <p className="font-Rubik_Regular bg-green-300 p-1 text-green-700 text-xs rounded">Approved Requests</p>
-                    </div>
-                    <p className="text-lg font-Rubik-Bold font-bold mt-2">John Knox's Finance Group</p>
+                <ListingCard />
 
-                    <p className="mt-2 font-Rubik-Regular text-sm">112 Riverview Lane, Bronx, 11435.</p>
+                <ListingCard />
 
-                    <p className="mt-2 font-Rubik-Regular text-sm">New York</p>
-
-                    <p className="mt-2 font-Rubik-Regular text-sm">+1 (902) 562 3772</p>
-
-                    <p className="mt-2 font-Rubik-Regular text-sm">childcaresupport@gmail.com</p>
-                </div>
-
-                <div className="w-72 h-56 rounded-lg bg-gray-100 p-5 flex flex-col">
-                    <div className="flex justify-between">
-                        <p className="font-Rubik_Regular bg-green-300 p-1 text-green-700 text-xs rounded">Approved Requests</p>
-                    </div>
-                    <p className="text-lg font-Rubik-Bold font-bold mt-2">John Knox's Finance Group</p>
-
-                    <p className="mt-2 font-Rubik-Regular text-sm">112 Riverview Lane, Bronx, 11435.</p>
-
-                    <p className="mt-2 font-Rubik-Regular text-sm">New York</p>
-
-                    <p className="mt-2 font-Rubik-Regular text-sm">+1 (902) 562 3772</p>
-
-                    <p className="mt-2 font-Rubik-Regular text-sm">childcaresupport@gmail.com</p>
-                </div>
-
-                <div className="w-72 h-56 rounded-lg bg-gray-100 p-5 flex flex-col">
-                    <div className="flex justify-between">
-                        <p className="font-Rubik_Regular bg-green-300 p-1 text-green-700 text-xs rounded">Approved Requests</p>
-                    </div>
-                    <p className="text-lg font-Rubik-Bold font-bold mt-2">John Knox's Finance Group</p>
-
-                    <p className="mt-2 font-Rubik-Regular text-sm">112 Riverview Lane, Bronx, 11435.</p>
-
-                    <p className="mt-2 font-Rubik-Regular text-sm">New York</p>
-
-                    <p className="mt-2 font-Rubik-Regular text-sm">+1 (902) 562 3772</p>
-
-                    <p className="mt-2 font-Rubik-Regular text-sm">childcaresupport@gmail.com</p>
-                </div>
+                <ListingCard />
 
             </div>
 

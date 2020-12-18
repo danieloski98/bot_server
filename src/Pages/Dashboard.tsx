@@ -10,6 +10,7 @@ import Sidebar from '../Components/Dashboard/Components/Sidebar'
 // components
 import DashboardPage from '../Components/Dashboard/Pages/Dasboard'
 import ListingPage from '../Components/Dashboard/Pages/Listings'
+import RequestPage from '../Components/Dashboard/Pages/Request'
 
 
 export default function Dashboard() {
@@ -46,6 +47,7 @@ export default function Dashboard() {
                         <Switch>
                             <Route path="/dashboard/" exact component={DashboardPage} />
                             <Route path="/dashboard/listings" exact component={ListingPage} />
+                            <Route path="/dashboard/requests" exact component={RequestPage} />
                         </Switch>
                     </div>
                 </div>

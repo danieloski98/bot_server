@@ -22,9 +22,9 @@ export default function AcessSettings() {
                 <Table variant="simple">
                     <Thead>
                         <Tr>
-                        <Th>To convert</Th>
-                        <Th>into</Th>
-                        <Th isNumeric>multiply by</Th>
+                        <Th>User</Th>
+                        <Th>Email Address</Th>
+                        <Th isNumeric>Role</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
@@ -43,9 +43,9 @@ export default function AcessSettings() {
                 <Table variant="simple">
                     <Thead>
                         <Tr>
-                        <Th>To convert</Th>
-                        <Th>into</Th>
-                        <Th isNumeric>multiply by</Th>
+                        <Th>User</Th>
+                        <Th>Email Address</Th>
+                        <Th isNumeric>Role</Th>
                         </Tr>
                     </Thead>
                     <Tbody>

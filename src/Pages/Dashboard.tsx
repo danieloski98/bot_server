@@ -12,6 +12,9 @@ import DashboardPage from '../Components/Dashboard/Pages/Dasboard'
 import ListingPage from '../Components/Dashboard/Pages/Listings'
 import RequestPage from '../Components/Dashboard/Pages/Request'
 import SettingsPage from '../Components/Dashboard/Pages/Settings'
+import StatesPage from '../Components/Dashboard/Pages/States'
+import ZipCodes from '../Components/Dashboard/Pages/ZipCode'
+import ServiceType from '../Components/Dashboard/Pages/ServiceType'
 
 
 export default function Dashboard() {
@@ -50,6 +53,9 @@ export default function Dashboard() {
                             <Route path="/dashboard/listings" exact component={ListingPage} />
                             <Route path="/dashboard/requests" exact component={RequestPage} />
                             <Route path="/dashboard/settings" component={SettingsPage} />
+                            <Route path="/dashboard/states" component={StatesPage} />
+                            <Route path="/dashboard/zipcode" component={ZipCodes} />
+                            <Route path="/dashboard/services" component={ServiceType} />
                         </Switch>
                     </div>
                 </div>

@@ -11,6 +11,7 @@ import Sidebar from '../Components/Dashboard/Components/Sidebar'
 import DashboardPage from '../Components/Dashboard/Pages/Dasboard'
 import ListingPage from '../Components/Dashboard/Pages/Listings'
 import RequestPage from '../Components/Dashboard/Pages/Request'
+import SettingsPage from '../Components/Dashboard/Pages/Settings'
 
 
 export default function Dashboard() {
@@ -48,6 +49,7 @@ export default function Dashboard() {
                             <Route path="/dashboard/" exact component={DashboardPage} />
                             <Route path="/dashboard/listings" exact component={ListingPage} />
                             <Route path="/dashboard/requests" exact component={RequestPage} />
+                            <Route path="/dashboard/settings" component={SettingsPage} />
                         </Switch>
                     </div>
                 </div>

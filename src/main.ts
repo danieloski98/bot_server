@@ -9,7 +9,7 @@ async function bootstrap() {
   app.use(morgan('combined'))
   
   const options = new DocumentBuilder()
-  .setTitle('Cats example')
+  .setTitle('Zoe API')
   .setDescription('The cats API description')
   .setVersion('1.0')
   .build();

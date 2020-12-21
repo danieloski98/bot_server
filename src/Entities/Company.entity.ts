@@ -1,26 +1,24 @@
 import { PrimaryGeneratedColumn, Column, Entity } from 'typeorm'
 
 @Entity()
-export class Admin {
-
+export class Company {
+    
     @PrimaryGeneratedColumn("uuid")
-    id: string;
+    id: string
 
+    @Column()
+    name: string;
 
     @Column()
     email: string;
 
     @Column()
-    firstname: string;
+    address: string;
 
     @Column()
-    lastname: string;
-
-
-    @Column()
-    password: string;
-    
+    phone: string;
 
     @Column()
-    role: number;
+    website: string;
+
 }

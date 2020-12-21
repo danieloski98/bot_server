@@ -60,4 +60,7 @@ export class Listing {
     })
     @Column()
     business_name: string;
+
+    @Column()
+    accepted: boolean;
 }

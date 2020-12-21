@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ListingsModule } from './routes/listings/listings.module';
+import { AdminModule } from './routes/admin/admin.module';
 
 @Module({
   imports: [
@@ -16,9 +17,11 @@ import { ListingsModule } from './routes/listings/listings.module';
       entities: ["dist/**/*.entity{.ts,.js}"],
       autoLoadEntities: true,
       logging: true,
-      synchronize: true
+      synchronize: true,
+      entityPrefix: 'zoe_'
     }),
-    ListingsModule
+    ListingsModule,
+    AdminModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -3,6 +3,8 @@ import { InputGroup, InputLeftElement, Input, Select } from '@chakra-ui/react'
 import { FiSearch } from 'react-icons/fi'
 import RequestCard from '../../Dashboard/Components/RequestCard'
 
+export const IconsHolder = (props) => <div className="flex items-center h-full ">{props.children}</div>;
+
 export default function Request() {
     return (
         <div className="w-full h-auto bg-white rounded px-5 pt-6">
@@ -18,7 +20,7 @@ export default function Request() {
                     
                     <div className="w-64">
                     <InputGroup>
-                        <InputLeftElement children={<FiSearch size={30} color="#067E72" />} />
+                        <InputLeftElement children={<IconsHolder><FiSearch size={20} color="#067E72" /></IconsHolder>} />
                         <Input variant="filled" placeholder="Quick Search"></Input>
                     </InputGroup>
                     </div>

@@ -12,7 +12,7 @@ import Settings from '../../../assets/icons/Settings'
 import { useHistory, useLocation } from 'react-router-dom'
 
 // classnames
-const Active = "flex h-10 items-center px-2 bg-green-700 hover:bg-green-500 rounded mb-4 cursor-pointer text-white ml-3"
+const Active = "flex h-10 items-center px-2 bg-green-500 hover:bg-green-400 rounded mb-4 cursor-pointer text-white ml-3"
 const InActive = "flex h-10 items-center px-2 rounded mb-4 cursor-pointer hover:bg-green-400 text-black ml-3"
 
 export default function Sidebar() {

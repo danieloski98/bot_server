@@ -3,6 +3,8 @@ import { InputGroup, Input, InputLeftElement } from '@chakra-ui/react'
 import { FiLock, FiSearch } from 'react-icons/fi'
 import MemoryCard from '../Components/MemoryCard'
 
+export const IconsHolder = (props) => <div className="flex items-center h-full ">{props.children}</div>;
+
 export default function States() {
     return (
         <div className="w-full h-auto rounded bg-white p-8 flex flex-col">
@@ -17,7 +19,7 @@ export default function States() {
                 <div className="flex-1 flex justify-end">
                     <div className="w-72">
                         <InputGroup >
-                            <InputLeftElement className="text-xl" children={<FiSearch color="black" size={30} />}></InputLeftElement>
+                            <InputLeftElement className="text-xl" children={<IconsHolder><FiSearch color="black" size={20} /></IconsHolder>}></InputLeftElement>
                             <Input variant="filled" placeholder="search" />
                         </InputGroup>
                     </div>

@@ -3,6 +3,8 @@ import React from 'react'
 import { FiSearch, FiLock } from 'react-icons/fi'
 import MemoryCard from '../Components/MemoryCard'
 
+export const IconsHolder = (props) => <div className="flex items-center h-full ">{props.children}</div>;
+
 export default function ServiceType() {
     return (
         <div className="w-full h-auto rounded bg-white p-8 flex flex-col">
@@ -17,8 +19,8 @@ export default function ServiceType() {
             <div className="flex-1 flex justify-end">
                 <div className="w-72">
                     <InputGroup >
-                        <InputLeftElement className="text-xl" children={<FiSearch color="black" size={30} className="text-lg" />}></InputLeftElement>
-                        <Input variant="filled" placeholder="search" size="lg" />
+                        <InputLeftElement className="text-xl" children={<IconsHolder><FiSearch color="black" size={20} className="text-lg" /></IconsHolder>}></InputLeftElement>
+                        <Input variant="filled" placeholder="search"  />
                     </InputGroup>
                 </div>
             </div>

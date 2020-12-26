@@ -1,10 +1,14 @@
 import React from 'react'
 import { InputGroup, InputRightElement, InputLeftElement, Input } from '@chakra-ui/react';
+import { FiSearch } from 'react-icons/fi'
+
+
+export const IconsHolder = (props) => <div className="flex items-center h-full ">{props.children}</div>;
 
 const SearchBtn =() => {
     return (
         <div>
-            <button className="text-xs text-white p-1 rounded h-8 mr-12 w-20 bg-green-700">Saerch</button>
+            <button className="text-xs text-white p-1 rounded h-8 mr-12 w-20 bg-green-500">Search</button>
         </div>
     )
 }
@@ -17,7 +21,7 @@ const ProfileChip = () => {
                 <p className="font-Rubik_Regular text-xs">Daniel Emmanuel</p>
             </div>
 
-            <div className="w-10 h-10 mt-1 rounded-full bg-green-700"></div>
+            <div className="w-10 h-10 mt-1 rounded-full bg-green-500"></div>
         </section>
     )
 }
@@ -27,7 +31,7 @@ export default function Navbar() {
         <section className="w-full px-12 h-20 shadow-sm bg-white flex items-center justify-between">
             <div className="w-3/5">
                 <InputGroup>
-                    <InputLeftElement></InputLeftElement>
+                    <InputLeftElement children={<IconsHolder><FiSearch size={20} color="#067E72" /></IconsHolder>}></InputLeftElement>
                     <Input variant="filled" placeholder="search"/>
                     <InputRightElement children={<SearchBtn />}></InputRightElement>
                 </InputGroup>

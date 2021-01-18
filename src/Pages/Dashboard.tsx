@@ -2,6 +2,8 @@ import React from 'react'
 import Navbar from '../Components/Dashboard/Components/Navbar'
 import { Switch, Route } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
+import NetworkActivity from '../Components/Dashboard/Components/NetworkActivity';
+import useDetails from '../Hooks/useAdminDetails';
 
 // icons
 import GreenLogo from '../assets/icons/Greenlogo'
@@ -19,6 +21,30 @@ import ServiceType from '../Components/Dashboard/Pages/ServiceType'
 
 export default function Dashboard() {
     const history = useHistory();
+    const {setEmail, setId, setToken, setFirstname, setLastname, setRole, id} = useDetails();
+
+    React.useEffect(() => {
+        // check the sessionStorage
+      const localId = sessionStorage.getItem('id');
+      // check the context
+      const contextId = id;
+        
+      // check if the id is null or undefined
+      if (contextId === null || contextId === undefined || contextId === '') {
+        console.log(localId);
+          // check sessionStorage
+          if (localId === null || localId === undefined) {
+                history.push('/login');
+          }else {
+              setId(sessionStorage.getItem('id'));
+              setEmail(sessionStorage.getItem('email'));
+              setToken(sessionStorage.getItem('token'));
+              setFirstname(sessionStorage.getItem('firstname'));
+              setLastname(sessionStorage.getItem('lastname'));
+              setRole(parseInt(sessionStorage.getItem('role')))
+          }
+      }
+    })
 
     return (
         <div className="w-screen h-screen flex">
@@ -43,6 +69,7 @@ export default function Dashboard() {
 
             <section className="flex-1 bg-gray-100 flex flex-col overflow-hidden">
                 <div className="w-full h-20 s">
+                    <NetworkActivity />
                     <Navbar />
                 </div>
 

@@ -6,6 +6,10 @@ import Eye from '../../assets/icons/Eye'
 import { useHistory } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as yup from 'yup';
+import useMakeRequest from '../../Hooks/useMakeRequest'
+import Loader from '../globals/Loader'
+import useDetails from '../../Hooks/useAdminDetails';
+import { IAdmintype } from '../../types/Admin'
 
 export const IconsHolder = (props) => <div className="flex items-center h-full ">{props.children}</div>;
 
@@ -17,7 +21,10 @@ const validationSchema = yup.object({
 
 export default function Form() {
     const [showPassword, setShowPassword] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
     const history = useHistory();
+    const { makeRequest } = useMakeRequest();
+    const { setToken, setFirstname, setLastname, setEmail, setRole, setId } = useDetails();
 
     const formik = useFormik({
         initialValues: {email: '', password: ''},
@@ -25,8 +32,59 @@ export default function Form() {
         validationSchema,
     })
 
+
+    const closeModal = () => {
+        setLoading(false);
+    }
+
+    async function request() {
+        if (!formik.dirty) {
+            alert('You have to fill the form to continue');
+        }else if (!formik.isValid) {
+            alert('Please fillin the form correctly.')
+        }else {
+            // make the request
+            setLoading(true);
+            const data = await makeRequest('/admin/login', formik.values, {method: 'POST'});
+            console.log(data);
+            setLoading(false);
+            switch(data.statusCode) {
+                case 200: {
+                    alert(data.successMessage);
+                    const token = data.data['token'];
+                    const user = data.data['user'] as IAdmintype;
+                    setId(user.id);
+                    setToken(token);
+                    setEmail(user.email);
+                    setRole(user.role);
+                    setFirstname(user.firstname);
+                    setLastname(user.lastname);
+
+                    // save it to sessionStorage
+                    sessionStorage.setItem('id', user.id);
+                    sessionStorage.setItem('token', token);
+                    sessionStorage.setItem('email', user.email);
+                    sessionStorage.setItem('firstname', user.firstname);
+                    sessionStorage.setItem('lastname', user.lastname);
+                    sessionStorage.setItem('role', user.role.toString());
+                    history.push('/dashboard');
+                    break;
+                }
+                case 400: {
+                    alert(data.errorMessage);
+                    break;
+                }
+                case 500: {
+                    alert(data.errorMessage);
+                    break;
+                }
+            }
+        }
+    }
+
     return (
         <div>
+            <Loader loading={loading} onClose={closeModal} message={`${formik.values.email} Loggin in...`} />
             <h1 className="font-Rubik_Bold text-xl">Welcome Back</h1>
             <p className="font-Rubik_Medium text-xs">Please sign in to access your account</p>
 
@@ -68,7 +126,7 @@ export default function Form() {
             className="text-right font-Rubik_Medium text-sm text-green-700 mt-4 cursor-pointer">Forgot Password</p>
 
             <button 
-            onClick={() => alert(JSON.stringify(formik.values))}
+            onClick={() => alert('SERVER CURRENTLY OFFLINE')}
             className="w-full h-12 mt-4 font-Rubik_Regular text-sm rounded text-white bg-green-700">Login</button>
         </div>
     )

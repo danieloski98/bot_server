@@ -126,7 +126,7 @@ export default function Form() {
             className="text-right font-Rubik_Medium text-sm text-green-700 mt-4 cursor-pointer">Forgot Password</p>
 
             <button 
-            onClick={() => alert('SERVER CURRENTLY OFFLINE')}
+            onClick={request}
             className="w-full h-12 mt-4 font-Rubik_Regular text-sm rounded text-white bg-green-700">Login</button>
         </div>
     )

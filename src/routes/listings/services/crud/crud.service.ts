@@ -73,4 +73,167 @@ export class CrudService {
             });
         }
     }
+
+
+    async getApprovedListings(offset: number): Promise<IReturnType> {
+        try {
+            const listings = await this.listingRepo.find({ where: { approved: true }});
+
+            
+            // send the first 6
+            if (listings.length <= 6) {
+                return Return({
+                    error: false,
+                    statusCode: 200,
+                    successMessage: 'Listings found',
+                    data: {
+                        remaining: 0,
+                        page: 1,
+                        listings
+                    }
+                })
+            }else {
+                if (listings.length <= offset) {
+                    return Return({
+                        error: false,
+                        statusCode: 400,
+                        errorMessage: 'No more results'
+                    })
+                }else if (listings.length < offset + 6) {
+                    const data = listings.slice(offset);
+                    return Return({
+                        error: false,
+                        statusCode: 200,
+                        successMessage: 'Listings found',
+                        data: {
+                            remaining: 0,
+                            offset,
+                            listings: data,
+                        }
+                    }) 
+                }
+                const data = listings.slice(offset, offset + 6);
+                const remain = listings.slice(offset, listings.length - 1);
+                return Return({
+                    error: false,
+                    statusCode: 200,
+                    successMessage: 'Listings found',
+                    data: {
+                        remaining: remain.length,
+                        page: 1,
+                        listings: data
+                    }
+                })
+            }
+            
+        } catch (error) {
+            return Return({
+                error: true,
+                statusCode: 500,
+                errorMessage: 'Internal server error',
+                trace: error,
+            });
+        }
+    }
+
+
+
+    async getListings(offset: number): Promise<IReturnType> {
+        try {
+            const listings = await this.listingRepo.find();
+
+            // send the first 6
+            if (listings.length <= 6) {
+                return Return({
+                    error: false,
+                    statusCode: 200,
+                    successMessage: 'Listings found',
+                    data: {
+                        remaining: 0,
+                        page: 1,
+                        listings
+                    }
+                })
+            }else {
+                if (listings.length <= offset) {
+                    return Return({
+                        error: false,
+                        statusCode: 400,
+                        errorMessage: 'No more results'
+                    })
+                }else if (listings.length < offset + 6) {
+                    const data = listings.slice(offset);
+                    return Return({
+                        error: false,
+                        statusCode: 200,
+                        successMessage: 'Listings found',
+                        data: {
+                            remaining: 0,
+                            offset,
+                            listings: data,
+                        }
+                    }) 
+                }
+                const data = listings.slice(offset, offset + 6);
+                const remain = listings.slice(offset, listings.length - 1);
+                return Return({
+                    error: false,
+                    statusCode: 200,
+                    successMessage: 'Listings found',
+                    data: {
+                        remaining: remain.length,
+                        page: 1,
+                        listings: data
+                    }
+                })
+            }
+            
+        } catch (error) {
+            return Return({
+                error: true,
+                statusCode: 500,
+                errorMessage: 'Internal server error',
+                trace: error,
+            });
+        }
+    }
+ 
+
+    async approveListing(id: string): Promise<IReturnType> {
+        try {
+            // check for the listing
+            const listing = await this.listingRepo.find({ where: {id}});
+            if (listing.length < 1) {
+                return Return({
+                    error: true,
+                    statusCode: 500,
+                    errorMessage: 'Listing not found',
+                });
+            }else if (listing[0].approved) {
+                return Return({
+                    error: false,
+                    statusCode: 200,
+                    successMessage: `${listing[0].business_name} already approved to offer ${listing[0].service_type} services `,
+                });
+            }
+
+            // update the listing
+            const update = await this.listingRepo.update(id, {approved: true});
+            this.logger.log(update);
+
+            return Return({
+                error: false,
+                statusCode: 200,
+                successMessage: `Approved ${listing[0].business_name} to offer ${listing[0].service_type} services `,
+            });
+        } catch (error) {
+            return Return({
+                error: true,
+                statusCode: 500,
+                errorMessage: 'Internal server error',
+                trace: error,
+            });
+        }
+    }
+
 }

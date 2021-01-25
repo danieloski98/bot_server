@@ -6,6 +6,7 @@ import * as morgan from 'morgan';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  app.enableCors();
   app.use(morgan('combined'))
   
   const options = new DocumentBuilder()

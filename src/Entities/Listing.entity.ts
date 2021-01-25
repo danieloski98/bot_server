@@ -11,11 +11,13 @@ export class Listing {
     @PrimaryGeneratedColumn("uuid")
     id: string;
 
+
     @ApiProperty({
         type: String
     })
     @Column()
     state: string;
+
 
     @ApiProperty({
         type: String
@@ -23,11 +25,13 @@ export class Listing {
     @Column()
     address: string;
 
+
     @ApiProperty({
         type: String
     })
     @Column()
     zip_code: string;
+
 
     @ApiProperty({
         type: String
@@ -35,11 +39,13 @@ export class Listing {
     @Column()
     service_type: string;
 
+
     @ApiProperty({
         type: String
     })
     @Column()
     email: string;
+
 
     @ApiProperty({
         type: String
@@ -47,12 +53,16 @@ export class Listing {
     @Column()
     phone: string;
 
+
     @ApiProperty({
         type: String,
         required: false
     })
-    @Column()
+    @Column({
+        nullable: true
+    })
     website: string;
+
 
     @ApiProperty({
         type: String,
@@ -60,4 +70,15 @@ export class Listing {
     })
     @Column()
     business_name: string;
+    
+
+    @ApiProperty({
+        type: Boolean,
+        description: 'if the listing has been accepted'
+    })
+    @Column({
+        nullable: false,
+        default: false,
+    })
+    approved: boolean;
 }

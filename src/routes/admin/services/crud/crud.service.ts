@@ -15,6 +15,7 @@ export class CrudService {
 
     async createAdmin(payload: Admin):Promise<IReturnType> {
         try {
+            this.logger.log(payload);
             // check if an admin exist with that email
             const adminExist = await this.adminRepo.find({ where: { email: payload.email}});
             if (adminExist.length > 0) {
@@ -65,6 +66,7 @@ export class CrudService {
         }
     }
 
+
     async login(payload: Admin): Promise<IReturnType> {
         try {
             const emailInUse = await this.adminRepo.find({ where: { email: payload.email }})
@@ -91,13 +93,14 @@ export class CrudService {
                     const algo: Algorithm = "HS512";
                     // generate JWT
                     const jwt = sign(payload, 'OEZTOB', { expiresIn: '3h', algorithm: algo});
-
+                    delete emailInUse[0].password;
                     return Return({
                         error: false,
                         statusCode: 200,
                         successMessage: 'Login successful',
                         data: {
                             token: jwt,
+                            user: emailInUse[0]
                         }
                     })
                 }
@@ -111,4 +114,164 @@ export class CrudService {
             });
         }
     }
+
+    async updateAdmin(id: string, payload: Partial<Admin>): Promise<IReturnType> {
+        try {
+            const adminExist = await this.adminRepo.find({ where: { id }});
+            if (adminExist.length < 1) {
+                return Return({
+                    error: true,
+                    statusCode: 400,
+                    errorMessage: 'Admin Not found.'
+                })
+            } else {
+                delete payload.email;
+                delete payload.role;
+
+                const updated = await this.adminRepo.update(id, payload);
+                this.logger.log(updated.affected);
+                return Return({
+                    error: true,
+                    statusCode: 200,
+                    successMessage: updated.affected > 0 ? "Updated successfully" : "Please try again",
+                })
+            }
+        } catch (error) {
+            return Return({
+                error: true,
+                statusCode: 500,
+                errorMessage: 'Internal Server error',
+                trace: error
+            });
+        }
+    }
+
+    async getAdminById(id: string): Promise<IReturnType> {
+        try {
+            const exists = await this.adminRepo.find({ where: { id }});
+            if (exists.length < 1) {
+                return Return({
+                    error: true,
+                    statusCode: 400,
+                    errorMessage: 'Admin not found',
+                });
+            } else {
+                delete exists[0].password;
+                return Return({
+                    error: false,
+                    statusCode: 200,
+                    successMessage: 'Admin found',
+                    data: exists[0],
+                })
+            }
+        } catch (error) {
+            return Return({
+                error: true,
+                statusCode: 500,
+                errorMessage: 'Internal Server error',
+                trace: error
+            });
+        }
+    }
+
+    async getAllAdmins(): Promise<IReturnType> {
+        try {
+            const allAdmins = await this.adminRepo.find();
+            allAdmins.map(admin => {
+                delete admin.password
+            });
+            return Return({
+                error: false,
+                statusCode: 200,
+                data: allAdmins,
+            })
+        } catch (error) {
+            return Return({
+                error: true,
+                statusCode: 500,
+                errorMessage: 'Internal Server error',
+                trace: error
+            });
+        }
+    }
+
+    async updatePassword(id: string, payload: {oldPassword: string, newPassword: string}): Promise<IReturnType> {
+        try {
+            const adminByid = await this.adminRepo.find({ where: { id }});
+            if (adminByid.length < 1) {
+                return Return({
+                    error: true,
+                    statusCode: 400,
+                    errorMessage: 'Admin not found.',
+                })
+            } else {
+                // compare passwords
+                const passwordmatch = compareSync(payload.oldPassword, adminByid[0].password);
+                if (!passwordmatch) {
+                    return Return({
+                        error: true,
+                        statusCode: 400,
+                        errorMessage: 'Passwords do no match'
+                    })
+                } else {
+                    // the password
+                    const comparePass = compareSync(payload.newPassword, adminByid[0].password);
+                    if (comparePass) {
+                        return Return({
+                            error: true,
+                            statusCode: 400,
+                            errorMessage: 'Cannot use the old password as the new one'
+                        })
+                    }
+                    // hash the password
+                    const salt = genSaltSync();
+                    const hash = hashSync(payload.newPassword, salt);
+                    const updated = await this.adminRepo.update(id, { password: hash });
+                    this.logger.log(updated);
+                    return Return({
+                        error: false,
+                        statusCode: 200,
+                        successMessage: updated.affected > 0 ? 'Password updated successfully' : 'not updated, try again'
+                    })
+                }
+            }
+        } catch (error) {
+            return Return({
+                error: true,
+                statusCode: 500,
+                errorMessage: 'Internal Server error',
+                trace: error
+            });
+        }
+    }
+
+    async deleteAdmin(adminId: string): Promise<IReturnType> {
+        try {
+            // check for the admin
+            const adminExist = await this.adminRepo.find({ where: {id: adminId }});
+            if (adminExist.length < 1) {
+                return Return({
+                    error: true,
+                    statusCode: 400,
+                    errorMessage: 'Admin not found',
+                })
+            }else {
+                const deleted = await this.adminRepo.delete(adminId);
+                this.logger.log(deleted);
+                return Return({
+                    error: false,
+                    statusCode: 200,
+                    successMessage: `Admin with email ${adminExist[0].email} deleted`
+                })
+            }
+        } catch (error) {
+            return Return({
+                error: true,
+                statusCode: 500,
+                errorMessage: 'Internal Server error',
+                trace: error
+            });
+        }
+    }
+
 }

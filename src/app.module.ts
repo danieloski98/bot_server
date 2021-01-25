@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ListingsModule } from './routes/listings/listings.module';
 import { AdminModule } from './routes/admin/admin.module';
+import { EmailModule } from './modules/email/email.module';
 
 @Module({
   imports: [
@@ -16,12 +17,13 @@ import { AdminModule } from './routes/admin/admin.module';
       database: 'bot',
       entities: ["dist/**/*.entity{.ts,.js}"],
       autoLoadEntities: true,
-      logging: true,
+      logging: false,
       synchronize: true,
       entityPrefix: 'zoe_'
     }),
     ListingsModule,
-    AdminModule
+    AdminModule,
+    EmailModule
   ],
   controllers: [AppController],
   providers: [AppService],

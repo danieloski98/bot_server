@@ -5,6 +5,9 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { ListingsModule } from './routes/listings/listings.module';
 import { AdminModule } from './routes/admin/admin.module';
 import { EmailModule } from './modules/email/email.module';
+import { ServiceTypeModule } from './routes/service-type/service-type.module';
+import { ZipCodeModule } from './routes/zip-code/zip-code.module';
+import { StatesModule } from './routes/states/states.module';
 
 @Module({
   imports: [
@@ -23,7 +26,10 @@ import { EmailModule } from './modules/email/email.module';
     }),
     ListingsModule,
     AdminModule,
-    EmailModule
+    EmailModule,
+    ServiceTypeModule,
+    ZipCodeModule,
+    StatesModule
   ],
   controllers: [AppController],
   providers: [AppService],

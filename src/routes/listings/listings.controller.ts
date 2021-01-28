@@ -1,4 +1,4 @@
-import { Controller, Res, Post, Logger, Get, Body, Query, Param } from '@nestjs/common';
+import { Controller, Res, Post, Logger, Get, Body, Query, Param, Delete, Put } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiBody, ApiInternalServerErrorResponse, ApiOkResponse, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { Listing } from 'src/Entities/Listing.entity';
@@ -74,6 +74,9 @@ export class ListingsController {
     @ApiBadRequestResponse({ description: 'There was an error while adding the listing ' })
     @ApiInternalServerErrorResponse({ description: 'Internal server error occured' })
     async getListings(@Res() res: Response, @Query() query: any) {
+        if (query['offset'] === undefined || query['offset'] === null) {
+            res.status(400).send(Return({error: true, statusCode: 400, errorMessage: 'Offset is required'}))
+        }
         if (query['offset'] === null || query['offset'] === undefined) {
             res.status(400).send(Return({
                 error: true,
@@ -85,7 +88,9 @@ export class ListingsController {
         res.status(result.statusCode).send(result);
     }
 
-    @Post(':listing_id')
+    
+
+    @Put(':listing_id')
     @ApiTags('Listings')
     @ApiParam({ name: 'listing_id', type: String})
     @ApiOkResponse({ description: 'the listing has been added' })
@@ -102,5 +107,51 @@ export class ListingsController {
         const result = await this.crudService.approveListing(param['listing_id']);
         res.status(result.statusCode).send(result);
     }
+
+
+    @Delete(':id')
+    @ApiTags('Listings')
+    @ApiParam({ name: 'listing_id', type: String})
+    @ApiOkResponse({ description: 'the listing has been declined' })
+    @ApiBadRequestResponse({ description: 'There was an error while declining the listing ' })
+    @ApiInternalServerErrorResponse({ description: 'Internal server error occured' })
+    async deleteListing(@Res() res: Response, @Param() param: any) {
+        if (param['id'] === null) {
+            res.status(400).send(Return({
+                error: true,
+                statusCode: 400,
+                errorMessage: 'offset not found'
+            }))
+        }
+        const result = await this.crudService.declineListing(param['id']);
+        res.status(result.statusCode).send(result);
+    }
+
+
+    @Put('bulkaccept')
+    @ApiTags('Listings')
+    @ApiParam({ name: 'listing_id', type: String})
+    @ApiOkResponse({ description: 'the listings have all been accepted ' })
+    @ApiBadRequestResponse({ description: 'There was an error while accepting the listing ' })
+    @ApiInternalServerErrorResponse({ description: 'Internal server error occured' })
+    async bulkAccept(@Res() res: Response,) {
+        const result = this.crudService.bulkApproval();
+        res.status((await result).statusCode).send(result);
+    }
+
+
+    @Delete('bulkdelete')
+    @ApiTags('Listings')
+    @ApiParam({ name: 'listing_id', type: String})
+    @ApiOkResponse({ description: 'the listings has been declined' })
+    @ApiBadRequestResponse({ description: 'There was an error while declining the listing ' })
+    @ApiInternalServerErrorResponse({ description: 'Internal server error occured' })
+    async bulkDecline(@Res() res: Response,) {
+        const result = this.crudService.bulkDecline();
+        res.status((await result).statusCode).send(result);
+    }
+
+
+
 
 }

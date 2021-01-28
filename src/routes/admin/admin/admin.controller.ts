@@ -79,6 +79,7 @@ export class AdminController {
     }
 
     @Delete(':admin_id')
+    @ApiTags('Admin')
     @ApiBody({ type: Admin })
     @ApiParam({ name: 'admin_id', type: String })
     @ApiBadRequestResponse({ description: 'An error occured' })

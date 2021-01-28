@@ -140,7 +140,7 @@ export class CrudService {
 
     async getListings(offset: number): Promise<IReturnType> {
         try {
-            const listings = await this.listingRepo.find();
+            const listings = await this.listingRepo.find({ where: {approved: false}});
 
             // send the first 6
             if (listings.length <= 6) {
@@ -199,6 +199,7 @@ export class CrudService {
     }
  
 
+
     async approveListing(id: string): Promise<IReturnType> {
         try {
             // check for the listing
@@ -235,5 +236,75 @@ export class CrudService {
             });
         }
     }
+
+    async declineListing(id: string): Promise<IReturnType> {
+        try {
+            const listing = await this.listingRepo.find({ where: {id}});
+            if (listing.length < 1) {
+                return Return({
+                    error: true,
+                    statusCode: 400,
+                    errorMessage: 'Listing found'
+                })
+            }
+
+            const del = await (await this.listingRepo.delete(id));
+            this.logger.log(del);
+            return Return({
+                error: false,
+                statusCode: 200,
+                successMessage: 'Listing declined',
+            })
+        } catch (error) {
+            return Return({
+                error: true,
+                statusCode: 500,
+                errorMessage: 'Internal server error',
+                trace: error,
+            });
+        }
+    }
+
+
+     async bulkApproval(): Promise<IReturnType> {
+         try {
+             const listings = await this.listingRepo.update({approved: false}, {approved: true});
+             this.logger.log(listings);
+             return Return({
+                 error: false,
+                 statusCode: 200,
+                 successMessage: 'Approved all listings'
+             })
+         } catch (error) {
+            return Return({
+                error: true,
+                statusCode: 500,
+                errorMessage: 'Internal server error',
+                trace: error,
+            });
+         }
+     }
+
+
+     async bulkDecline(): Promise<IReturnType> {
+         try {
+            const listings = await this.listingRepo.delete({approved: false});
+            this.logger.log(listings);
+            return Return({
+                error: false,
+                statusCode: 200,
+                successMessage: 'Approved all listings'
+            })
+         } catch (error) {
+            return Return({
+                error: true,
+                statusCode: 500,
+                errorMessage: 'Internal server error',
+                trace: error,
+            });
+         }
+     }
+
+    
 
 }

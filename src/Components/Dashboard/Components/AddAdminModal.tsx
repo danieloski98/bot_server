@@ -40,11 +40,12 @@ export default function AddAdminModal(props: {showModal: boolean, closeModal: Fu
         }
         if (Mutation.status === 'error') {
             clearFields();
-            Mutation.reset();
             alert(Mutation.error['response'].data.errorMessage);
+            Mutation.reset();
         } else if (Mutation.status === 'success') {
             clearFields();
             alert(Mutation.data.successMessage);
+            Mutation.reset();
         }
     });
 

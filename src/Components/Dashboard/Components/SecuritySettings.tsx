@@ -44,6 +44,9 @@ export default function SecuritySettings() {
     });
 
     const submit = () => {
+        if (!formik.dirty) {
+            alert('Please fill in th form to continue');
+        }
         if (!formik.isValid) {
             alert('Please filling the form correctly');
         } else if (formik.values.newPassword !== formik.values.confirmPassword) {

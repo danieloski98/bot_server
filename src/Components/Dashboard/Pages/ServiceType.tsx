@@ -17,11 +17,8 @@ export default function ServiceType() {
             </div>
 
             <div className="flex-1 flex justify-end">
-                <div className="w-72">
-                    <InputGroup >
-                        <InputLeftElement className="text-xl" children={<IconsHolder><FiSearch color="black" size={20} className="text-lg" /></IconsHolder>}></InputLeftElement>
-                        <Input variant="filled" placeholder="search"  />
-                    </InputGroup>
+                <div className="">
+                   <button className=" px-3 h-10 rounded bg-green-400 text-xs text-white font-Rubik_Regular">Add Service type</button>
                 </div>
             </div>
         </div>
@@ -34,22 +31,15 @@ export default function ServiceType() {
         </div>
 
         <div className="w-3/4  h-full grid grid-cols-2 gap-3 mt-10 ">
-                <MemoryCard />
-                <MemoryCard />
-                <MemoryCard />
-                <MemoryCard />
-                <MemoryCard />
-                <MemoryCard />
-                <MemoryCard />
-                <MemoryCard />
-                <MemoryCard />
-                <MemoryCard />
-                <MemoryCard />
-                <MemoryCard />
-                <MemoryCard />
-                <MemoryCard />
-                <MemoryCard />
-                <MemoryCard />
+                <MemoryCard type="Service" />
+                <MemoryCard type="Service" />
+                <MemoryCard type="Service" />
+                <MemoryCard type="Service" />
+                <MemoryCard type="Service" />
+                <MemoryCard type="Service" />
+                <MemoryCard type="Service" />
+                <MemoryCard type="Service" />
+                <MemoryCard type="Service" />
             </div>
 
     </div>

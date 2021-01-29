@@ -69,7 +69,6 @@ export default function Dashboard() {
 
             <section className="flex-1 bg-gray-100 flex flex-col overflow-hidden">
                 <div className="w-full h-20 s">
-                    <NetworkActivity />
                     <Navbar />
                 </div>
 

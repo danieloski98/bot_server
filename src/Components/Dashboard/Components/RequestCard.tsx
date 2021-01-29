@@ -1,6 +1,7 @@
 import React from 'react'
 import { AlertDialog, AlertDialogOverlay, AlertDialogBody, AlertDialogContent, AlertDialogFooter } from '@chakra-ui/react'
 import { FiX } from 'react-icons/fi';
+import { IListing } from '../../../types/listings';
 
 const AcceptDialog = (props: { isOpen: boolean, title: string, close: Function }) => {
     const [loading, setLoading] = React.useState(false);
@@ -50,7 +51,7 @@ const DeclineModal = (props: { isOpen: boolean, title: string, close: Function }
     
 }
 
-export default function RequestCard() {
+export default function RequestCard(props: {item: IListing}) {
     const [showAcceptDialog, setShowAcceptDialog] = React.useState(false);
     const [showDeclineModal, setShowDeclineModal] = React.useState(false);
 
@@ -71,17 +72,19 @@ export default function RequestCard() {
 
 
                     <div className="flex justify-between">
-                        <p className="font-Rubik_Regular bg-green-300 p-1 text-green-800 text-xs rounded">Financial Service</p>
+                        <p className="font-Rubik_Regular bg-green-300 p-1 text-green-800 text-xs rounded">{props.item.service_type}</p>
                     </div>
-                    <p className="text-lg font-Rubik-Bold font-bold mt-2">John Knox's Finance Group</p>
+                    <p className="text-lg font-Rubik-Bold font-bold mt-2">{props.item.business_name}</p>
 
-                    <p className="mt-2 font-Rubik-Regular text-sm">112 Riverview Lane, Bronx, 11435.</p>
+                    <p className="mt-2 font-Rubik-Regular text-sm">{props.item.address}</p>
 
-                    <p className="mt-2 font-Rubik-Regular text-sm">New York</p>
+                    <p className="mt-2 font-Rubik-Regular text-sm">{props.item.state}</p>
 
-                    <p className="mt-2 font-Rubik-Regular text-sm">+1 (902) 562 3772</p>
+                    <p className="mt-2 font-Rubik-Regular text-sm">{props.item.phone}</p>
 
-                    <p className="mt-2 font-Rubik-Regular text-sm">childcaresupport@gmail.com</p>
+                    <p className="mt-2 font-Rubik-Regular text-sm">{props.item.email}</p>
+
+                    <p className="mt-2 font-Rubik-Regular text-sm">{props.item.zip_code}</p>
 
                     <div className="flex w-full justify-between mt-5">
                         <button className="bg-green-500 text-xs flex-1 p-1 mx-2 text-white rounded" onClick={() => setShowAcceptDialog(true)}>Approve</button>

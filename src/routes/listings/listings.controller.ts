@@ -109,6 +109,25 @@ export class ListingsController {
     }
 
 
+    @Put('update/:listing_id')
+    @ApiTags('Listings')
+    @ApiParam({ name: 'listing_id', type: String})
+    @ApiOkResponse({ description: 'the listing has been added' })
+    @ApiBadRequestResponse({ description: 'There was an error while adding the listing ' })
+    @ApiInternalServerErrorResponse({ description: 'Internal server error occured' })
+    async editLisitng(@Res() res: Response, @Param() param: any, @Body() body: any) {
+        if (param['listing_id'] === null) {
+            res.status(400).send(Return({
+                error: true,
+                statusCode: 400,
+                errorMessage: 'offset not found'
+            }))
+        }
+        const result = await this.crudService.editlisting(param['listing_id'], body);
+        res.status(result.statusCode).send(result);
+    }
+
+
     @Delete(':id')
     @ApiTags('Listings')
     @ApiParam({ name: 'listing_id', type: String})

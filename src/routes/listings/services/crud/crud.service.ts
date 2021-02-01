@@ -305,6 +305,34 @@ export class CrudService {
          }
      }
 
+
+     async editlisting(id: string, payload: Listing): Promise<IReturnType> {
+         try {
+             const exist = await this.listingRepo.find({ where: { id }});
+             if (exist.length < 1) {
+                 return Return({
+                    error: true,
+                    statusCode: 400,
+                    errorMessage: 'Listing not found'
+                 });
+             }else {
+                 const update = await this.listingRepo.update({id}, payload);
+                 this.logger.log(update);
+                 return Return({
+                     error: false,
+                     statusCode: 200,
+                     successMessage: 'saved successfully'
+                 })
+             }
+         } catch (error) {
+            return Return({
+                error: true,
+                statusCode: 500,
+                errorMessage: 'Internal server error',
+                trace: error,
+            });
+         }
+     }
     
 
 }

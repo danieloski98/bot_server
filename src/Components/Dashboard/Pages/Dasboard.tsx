@@ -4,7 +4,7 @@ import StatCard from '../Components/StatCard'
 
 export default function Dasboard() {
     return (
-        <div className="w-full h-full rounded bg-white pt-10 px-5">
+        <div className="w-full h-auto rounded bg-white py-12 px-5">
             <h1 className="font-Rubik_Medium text-lg">Dashboard</h1>
             <p className="text-sm font-Rubik-Regular">Here's a quick preview of what's happening</p>
 
@@ -27,11 +27,11 @@ export default function Dasboard() {
 
             <div className="recent grid grid-cols-3 gap-2 mt-5">
 
-                <ListingCard />
+                {/* <ListingCard />
 
                 <ListingCard />
 
-                <ListingCard />
+                <ListingCard /> */}
 
             </div>
 

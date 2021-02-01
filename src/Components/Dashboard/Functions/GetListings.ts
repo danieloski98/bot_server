@@ -11,3 +11,12 @@ export async function makeRequest(offset: number) {
     }
     return result;
 }
+
+export async function getApproved(offset: number) {
+    const request = await fetch(`${URL}/listings/approved?offset=${offset}`);
+    const result = await request.json() as IReturnType;
+    if (!request.ok) {
+        throw new Error("An Error occured while trying to fetch the listings.");
+    }
+    return result;
+}

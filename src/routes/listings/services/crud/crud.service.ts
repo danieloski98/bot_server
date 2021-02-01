@@ -244,7 +244,7 @@ export class CrudService {
                 return Return({
                     error: true,
                     statusCode: 400,
-                    errorMessage: 'Listing found'
+                    errorMessage: 'Listing not found'
                 })
             }
 

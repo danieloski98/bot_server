@@ -78,6 +78,11 @@ export default function Listings() {
                         </div>)
                     }
             </div>
+
+            <div className="w-full h-24 flex justify-center">
+                {remaining > 0 && (<button onClick={more} className="h-10 rounded bg-green-400 px-3 text-xs text-white font-Rubik_Regular">Load more</button>)}
+            </div>
+            
         </div>
     )
 }

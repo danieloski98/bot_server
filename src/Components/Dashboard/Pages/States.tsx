@@ -16,11 +16,11 @@ export default function States() {
                     <p className="font-Rubik_Regular text-xs">All the states registered in Zoe's Memory</p>
                 </div>
 
-                <div className="flex-1 flex justify-end">
+                {/* <div className="flex-1 flex justify-end">
                 <div className="">
                    <button className=" px-3 h-10 rounded bg-green-400 text-xs text-white font-Rubik_Regular">Add State</button>
                 </div>
-                </div>
+                </div> */}
             </div>
 
             <div className="w-full flex mt-5 p-5 bg-gray-100 rounded-md">

@@ -162,14 +162,10 @@ const AddListingModal = (props: {showModal: boolean, closeModal: Function}) => {
                 <div className="mt-4 flex justify-between w-full">
                     <div className="flex flex-col flex-1 mr-3">
                         <p className="text-sm font-bold font-Rubik-Regular">Zipcode</p>
-                        <Select variant="filled" placeholder="zipcode" className="mt-3" name="zip_code"  value={formik.values.zip_code} onChange={formik.handleChange} 
-                        onBlur={formik.handleBlur} onFocus={() => formik.setFieldTouched('zip_code', true, true)}>
-                            {
-                                zipcodes.map((item, index) => (
-                                    <option key={index} value={item['code']}>{item.code}</option>
-                                ))
-                            }
-                        </Select>
+
+                        <Input type="text" name="zip_code"  value={formik.values.zip_code} onChange={formik.handleChange} 
+                        onBlur={formik.handleBlur} onFocus={() => formik.setFieldTouched('zip_code', true, true)} variant="filled" className="mt-3" />
+
                         {formik.touched.zip_code && formik.errors.zip_code && (<p className="text-sm font-bold font-Rubik-Regular text-red-400">{formik.errors.zip_code}</p>)}
                     </div>
 
@@ -287,16 +283,16 @@ export default function Request() {
 
                 <div className="flex justify-end mt-2">
                     
-                    <div className="h-10 mx-3">
-                        <button onClick={() => setShowModal(true)} className="bg-green-700 h-full text-white text-xs p-2 rounded">Add Listing</button>
+                    <div className="h-10 mr-10">
+                        <button onClick={() => setShowModal(true)} className="bg-green-500 h-full text-white text-xs p-2 rounded">Add Listing</button>
                     </div>
-
+{/* 
                     <div className="w-32 ml-3">
                         <Select placeholder="Action">
                             <option>Approve All</option>
                             <option>Declined All</option>
                         </Select>
-                    </div>
+                    </div> */}
 
                 </div>
             </div>

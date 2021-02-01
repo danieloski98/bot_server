@@ -54,12 +54,12 @@ export default function Sidebar() {
                 <p className=" text-xs font-Rubik_Regular ml-4">States</p>
             </div>
 
-            <div 
+            {/* <div 
                 onClick={() => changeLocation('zipcode')} 
                 className={loc === "/dashboard/zipcode" ? Active : InActive }>
                 <Location color={loc === "/dashboard/zipcode" ? "white": "#3E5351"} />
                 <p className=" text-xs font-Rubik_Regular ml-4">Zip Codes</p>
-            </div>
+            </div> */}
 
             <div 
                 onClick={() => changeLocation('services')} 

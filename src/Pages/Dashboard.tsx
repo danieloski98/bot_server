@@ -80,7 +80,7 @@ export default function Dashboard() {
                             <Route path="/dashboard/requests" exact component={RequestPage} />
                             <Route path="/dashboard/settings" component={SettingsPage} />
                             <Route path="/dashboard/states" component={StatesPage} />
-                            <Route path="/dashboard/zipcode" component={ZipCodes} />
+                            {/* <Route path="/dashboard/zipcode" component={ZipCodes} /> */}
                             <Route path="/dashboard/services" component={ServiceType} />
                         </Switch>
                     </div>

@@ -1,55 +1,8 @@
 import React from 'react'
-import { AlertDialog, AlertDialogOverlay, AlertDialogBody, AlertDialogContent, AlertDialogFooter } from '@chakra-ui/react'
-import { FiX } from 'react-icons/fi';
 import { IListing } from '../../../types/listings';
+import AcceptDialog from './Modals/ApproveListing';
+import DeclineModal from './Modals/DeclineModal';
 
-const AcceptDialog = (props: { isOpen: boolean, title: string, close: Function }) => {
-    const [loading, setLoading] = React.useState(false);
-    const { isOpen, title, close } = props;
-    const cancelRef = React.useRef();
-
-    return (
-        <AlertDialog isCentered={false} closeOnOverlayClick={false} closeOnEsc={false}  size="md" motionPreset="scale" isOpen={isOpen} onClose={() => close()} leastDestructiveRef={cancelRef}>
-            <AlertDialogOverlay>
-                <AlertDialogContent className="rounded-lg bg-white p-4">
-                    <div className="w-fill flex justify-end"><FiX size={25} color="black" className="cursor-pointer" onClick={() => close()}/></div>
-                    <h1 className="mt-3 font-Rubik-Bold font-bold text-center text-lg">Accept Listing</h1>
-                    <p className="text-center mt-4">{`You're about approving a listing - ${title}. Do you wish to continue`}</p>
-
-                    <div className="flex justify-center mt-5">
-                        <button className="px-2 h-8 rounded text-white text-xs font-Rubik_Regular bg-green-500 w-24 mr-4">Accept</button>
-                        <button className="px-2 h-8 rounded text-black text-xs font-Rubik_Regular border-2 border-green-500 w-24">Decline</button>
-                    </div>
-                </AlertDialogContent>
-            </AlertDialogOverlay>
-        </AlertDialog>
-    )
-}
-
-const DeclineModal = (props: { isOpen: boolean, title: string, close: Function }) => {
-
-    const [loading, setLoading] = React.useState(false);
-    const { isOpen, title, close } = props;
-    const cancelRef = React.useRef();
-
-    return (
-        <AlertDialog closeOnOverlayClick={false} closeOnEsc={false} isCentered={false} size="md" motionPreset="scale" isOpen={isOpen} onClose={() => close()} leastDestructiveRef={cancelRef}>
-            <AlertDialogOverlay>
-                <AlertDialogContent className="rounded-lg bg-white p-4">
-                    <div className="w-fill flex justify-end"><FiX size={25} color="black" className="cursor-pointer" onClick={() => close()}/></div>
-                    <h1 className="mt-3 font-Rubik-Bold font-bold text-center text-lg">Decline Listing</h1>
-                    <p className="text-center mt-4">{`You're about Declining a listing - ${title}. Do you wish to continue`}</p>
-
-                    <div className="flex justify-center mt-5">
-                        <button className="px-2 h-8 rounded text-white text-xs font-Rubik_Regular bg-green-500 w-24 mr-4">Continue</button>
-                        <button className="px-2 h-8 rounded text-black text-xs font-Rubik_Regular border-2 border-green-500 w-24">Cancel</button>
-                    </div>
-                </AlertDialogContent>
-            </AlertDialogOverlay>
-        </AlertDialog>
-    )
-    
-}
 
 export default function RequestCard(props: {item: IListing}) {
     const [showAcceptDialog, setShowAcceptDialog] = React.useState(false);
@@ -67,8 +20,8 @@ export default function RequestCard(props: {item: IListing}) {
         <div className="w-72 h-auto  rounded-lg bg-gray-100 p-5 flex flex-col">
 
 
-                    <AcceptDialog isOpen={showAcceptDialog} title="Hello there" close={closeAcceptModal} />
-                    <DeclineModal isOpen={showDeclineModal} title="Hello There" close={closeDeclineModal} />
+                    <AcceptDialog isOpen={showAcceptDialog} title={props.item.business_name} id={props.item.id} close={closeAcceptModal} />
+                    <DeclineModal isOpen={showDeclineModal} title={props.item.business_name} id={props.item.id} close={closeDeclineModal} />
 
 
                     <div className="flex justify-between">

@@ -24,6 +24,11 @@ export default function AcessSettings() {
         return result;
     })
 
+
+    const refetch = () => {
+        query.refetch();
+    }
+
     return (
         <div className="w-full h-full p-5 flex flex-col">
             <AddAdminModal showModal={showModal} closeModal={closeModal} />
@@ -41,7 +46,7 @@ export default function AcessSettings() {
             </div>
 
             <div className="flex-1 flex">
-                <AdminsTables loading={query.isLoading} superAdmins={query.isSuccess ? query.data.data.filter((item) => item.role === 1) : []} admins={query.isSuccess ? query.data.data.filter((item) => item.role === 2) : []} />
+                <AdminsTables refetch={refetch} loading={query.isLoading} superAdmins={query.isSuccess ? query.data.data.filter((item) => item.role === 1) : []} admins={query.isSuccess ? query.data.data.filter((item) => item.role === 2) : []} />
             </div>
 
 

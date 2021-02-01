@@ -4,7 +4,7 @@ import ListingCard from '../Components/ListingCard'
 import { Spinner } from '@chakra-ui/react'
 import { IListing } from '../../../types/listings';
 import { useQuery } from 'react-query';
-import { makeRequest, getApproved } from '../Functions/GetListings';
+import {  getApproved } from '../Functions/GetListings';
 import Empty  from '../../../assets/icons/notfound.svg';
 
 
@@ -14,7 +14,7 @@ export default function Listings() {
     const [remaining, setRemaining] = React.useState(0);
     const [showModal, setShowModal] = React.useState(false);
 
-    const {isLoading, data} = useQuery(['listings', offset],() => getApproved(offset));
+    const {isLoading, data} = useQuery(['Approvedlistings', offset],() => getApproved(offset));
     console.log(data);
 
     React.useEffect(() => {
@@ -82,7 +82,7 @@ export default function Listings() {
             <div className="w-full h-24 flex justify-center">
                 {remaining > 0 && (<button onClick={more} className="h-10 rounded bg-green-400 px-3 text-xs text-white font-Rubik_Regular">Load more</button>)}
             </div>
-            
+
         </div>
     )
 }

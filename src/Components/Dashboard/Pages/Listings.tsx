@@ -8,6 +8,7 @@ import {  getApproved } from '../Functions/GetListings';
 import Empty  from '../../../assets/icons/notfound.svg';
 
 
+
 export default function Listings() {
     const [requests, setRequests] = React.useState([] as IListing[]);
     const [offset, setOffset] = React.useState(0);
@@ -16,6 +17,7 @@ export default function Listings() {
 
     const {isLoading, data} = useQuery(['Approvedlistings', offset],() => getApproved(offset));
     console.log(data);
+
 
     React.useEffect(() => {
         // setTotalRequest(requests.length)
@@ -41,8 +43,6 @@ export default function Listings() {
      const closeModal = () => {
         setShowModal(false);
     }
-
-   
 
     return (
         <div className="w-full h-auto flex flex-col bg-white px-5 pt-6 rounded pb-8">

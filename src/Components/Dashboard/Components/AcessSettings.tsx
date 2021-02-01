@@ -5,6 +5,7 @@ import { useQuery, } from 'react-query';
 import AddAdminModal from './AddAdminModal';
 import AdminsTables from './AdminsTables';
 import { IReturnType } from '../../../types/ReturnType';
+import { URL } from '../../../types/Url'
 
 
 export default function AcessSettings() {
@@ -15,7 +16,7 @@ export default function AcessSettings() {
         setShowModal(false);
     }
     const query = useQuery('admins', async () => {
-        const request = await fetch('http://localhost:4000/admin');
+        const request = await fetch(`${URL}/admin`);
         const result = await request.json() as IReturnType;
         console.log(result)
         if (!request.ok) {

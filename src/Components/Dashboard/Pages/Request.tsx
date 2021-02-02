@@ -6,6 +6,7 @@ import { useQuery } from 'react-query';
 import { makeRequest } from '../Functions/GetListings';
 import Empty  from '../../../assets/icons/notfound.svg';
 import AddListingModal from '../Components/Modals/AddListingModal';
+import { FiRefreshCw } from 'react-icons/fi'
 
 
 export const IconsHolder = (props) => <div className="flex items-center h-full ">{props.children}</div>;
@@ -16,7 +17,7 @@ export default function Request() {
     const [remaining, setRemaining] = React.useState(0);
     const [showModal, setShowModal] = React.useState(false);
 
-    const {isLoading, data} = useQuery(['listings', offset],() => makeRequest(offset));
+    const {isLoading, data, refetch} = useQuery(['listings', offset],() => makeRequest(offset));
     console.log(data);
 
     React.useEffect(() => {
@@ -31,6 +32,18 @@ export default function Request() {
         }
     }, [data, isLoading]);
 
+    async function re() {
+        setRequests([]);
+        const {data} = await refetch();
+           if (data !== undefined) {
+            setRequests(prev => [...data.data.listings])
+            if (data.data.remaining> 0) {
+                setRemaining(data.data.remaining);
+            }else {
+                setRemaining(0);
+            }
+        }
+       }
 
     const more = () => {
         // totalRequest.current = requests.length;
@@ -55,9 +68,11 @@ export default function Request() {
                 </div>
 
                 <div className="flex justify-end mt-2">
-                    
+                    <div className="w-24 flex justify-center items-center h-10">
+                        <FiRefreshCw onClick={re} size={25} color="grey" />
+                    </div>
                     <div className="h-10 mr-10">
-                        <button onClick={() => setShowModal(true)} className="bg-green-500 h-full text-white text-xs p-2 rounded">Add Listing</button>
+                        <button onClick={() => setShowModal(true)} className="bg-green-500 h-full text-white text-xs p-2 rounded">Add Request</button>
                     </div>
 {/* 
                     <div className="w-32 ml-3">

@@ -10,6 +10,7 @@ import { URL } from '../../../../types/Url'
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import * as axios from 'axios';
+import useRefch from '../../../../Hooks/useRefetch'
 
 
 // validation schema
@@ -31,7 +32,7 @@ const AddListingModal = (props: {showModal: boolean, closeModal: Function, item:
     const [services, setServices] = React.useState([]);
     const [states, setStates] = React.useState([]);
     const [zipcodes, setZipcodes] = React.useState([]);
-
+    const {handleRefetch} = useRefch();
     // formik
     const formik = useFormik({
         initialValues: {
@@ -111,6 +112,7 @@ const AddListingModal = (props: {showModal: boolean, closeModal: Function, item:
             clearFields();
             alert(Mutation.data.successMessage);
             Mutation.reset();
+            handleRefetch();
         }
     });
 

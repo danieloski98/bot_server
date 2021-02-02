@@ -6,11 +6,13 @@ import * as axios from 'axios';
 import { useMutation } from 'react-query';
 import { IReturnType } from '../../../../types/ReturnType';
 import { URL } from '../../../../types/Url'
+import useRefch from '../../../../Hooks/useRefetch'
 
 const ApproveListingDialog = (props: { isOpen: boolean, title: string, close: Function, id: string }) => {
     const [loading, setLoading] = React.useState(false);
     const { isOpen, title, close } = props;
     const cancelRef = React.useRef();
+    const {handleRefetch} = useRefch();
 
     const Mutation = useMutation(async(id: string) => {
         const request = await axios.default.put(`${URL}/listings/${id}`);
@@ -30,9 +32,10 @@ const ApproveListingDialog = (props: { isOpen: boolean, title: string, close: Fu
             setLoading(false);
             alert(Mutation.data.successMessage);
             Mutation.reset();
+            handleRefetch();
             props.close();
         }
-    }, [setLoading, Mutation, props]);
+    }, [setLoading, Mutation, props, handleRefetch]);
 
     const submit = async() => {
         setLoading(true);

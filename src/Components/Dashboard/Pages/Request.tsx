@@ -69,7 +69,7 @@ export default function Request() {
 
                 <div className="flex justify-end mt-2">
                     <div className="w-24 flex justify-center items-center h-10">
-                        <FiRefreshCw onClick={re} size={25} color="grey" />
+                        <FiRefreshCw onClick={re} title="Refresh list" size={25} color="grey" className="cursor-pointer" />
                     </div>
                     <div className="h-10 mr-10">
                         <button onClick={() => setShowModal(true)} className="bg-green-500 h-full text-white text-xs p-2 rounded">Add Request</button>

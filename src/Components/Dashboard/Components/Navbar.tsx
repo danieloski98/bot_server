@@ -16,6 +16,13 @@ const SearchBtn =() => {
 
 const ProfileChip = () => {
     const { email, firstname, lastname } = useDetails();
+
+    const getintials = (): string => {
+        const first = firstname[0];
+        const last = lastname[0];
+        const initails = `${first}${last}`;
+        return initails.toUpperCase();
+    }
     return (
         <section className="w-auto h-16 p-2 rounded border border-gray-200 flex">
             <div className="flex-1 flex flex-col mt-1">
@@ -23,7 +30,7 @@ const ProfileChip = () => {
                 <p className="font-Rubik_Regular text-xs">{firstname} {lastname}</p>
             </div>
 
-            <div className="w-10 h-10 mt-1 rounded-full bg-green-500"></div>
+            <div className="w-10 h-10 mt-1 rounded-full bg-gray-100 flex justify-center items-center font-Rubik_Bold text-md">{getintials()}</div>
         </section>
     )
 }

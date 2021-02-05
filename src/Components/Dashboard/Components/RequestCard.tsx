@@ -1,4 +1,5 @@
 import React from 'react'
+import useAdminDetails from '../../../Hooks/useAdminDetails';
 import { IListing } from '../../../types/listings';
 import AcceptDialog from './Modals/ApproveListing';
 import DeclineModal from './Modals/DeclineModal';
@@ -7,6 +8,7 @@ import DeclineModal from './Modals/DeclineModal';
 export default function RequestCard(props: {item: IListing}) {
     const [showAcceptDialog, setShowAcceptDialog] = React.useState(false);
     const [showDeclineModal, setShowDeclineModal] = React.useState(false);
+    const details = useAdminDetails();
 
     // functions
     const closeAcceptModal = () => {
@@ -15,6 +17,7 @@ export default function RequestCard(props: {item: IListing}) {
 
     const closeDeclineModal = () => {
         setShowDeclineModal(false);
+        
     }
     return (
         <div className="w-72 h-auto  rounded-lg bg-gray-100 p-5 flex flex-col">
@@ -39,10 +42,14 @@ export default function RequestCard(props: {item: IListing}) {
 
                     <p className="mt-2 font-Rubik-Regular text-sm">{props.item.zip_code}</p>
 
-                    <div className="flex w-full justify-between mt-5">
-                        <button className="bg-green-500 text-xs flex-1 p-1 mx-2 text-white rounded" onClick={() => setShowAcceptDialog(true)}>Approve</button>
-                        <button className="bg-white text-xs flex-1 p-1 mx-2 text-green-500 border-2 border-green-500 rounded" onClick={() => setShowDeclineModal(true)}>Decline</button>
-                    </div>
+                    {
+                        details.role === 1 && (
+                            <div className="flex w-full justify-between mt-5">
+                                <button className="bg-green-500 text-xs flex-1 p-1 mx-2 text-white rounded" onClick={() => setShowAcceptDialog(true)}>Approve</button>
+                                <button className="bg-white text-xs flex-1 p-1 mx-2 text-green-500 border-2 border-green-500 rounded" onClick={() => setShowDeclineModal(true)}>Decline</button>
+                            </div>
+                        )
+                    }
         </div>
     )
 }

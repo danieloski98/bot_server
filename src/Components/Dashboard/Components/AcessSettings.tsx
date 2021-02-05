@@ -6,11 +6,13 @@ import AddAdminModal from './AddAdminModal';
 import AdminsTables from './AdminsTables';
 import { IReturnType } from '../../../types/ReturnType';
 import { URL } from '../../../types/Url'
+import useAdminDetails from '../../../Hooks/useAdminDetails';
 
 
 export default function AcessSettings() {
     const [showModal, setShowModal] = React.useState(false);
-
+    const details = useAdminDetails();
+    
     // function
     const closeModal = () => {
         setShowModal(false);
@@ -41,7 +43,11 @@ export default function AcessSettings() {
                 </div>
 
                 <div>
-                    <button className="w-32 h-10 rounded bg-green-500 text-white text-xs" onClick={() => setShowModal(true)}>Add User</button>
+                    {
+                        details.role === 1 && (
+                            <button className="w-32 h-10 rounded bg-green-500 text-white text-xs" onClick={() => setShowModal(true)}>Add User</button>
+                        )
+                    }
                 </div>
 
             </div>

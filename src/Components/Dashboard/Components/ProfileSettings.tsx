@@ -70,11 +70,18 @@ export default function ProfileSettings() {
         }
     }
 
+    const getintials = (): string => {
+        const first = firstname[0];
+        const last = lastname[0];
+        const initails = `${first}${last}`;
+        return initails.toUpperCase();
+    }
+
     return (
         <div className="w-full h-full flex flex-col">
             <div>
                 <div className="w-20 h-20 rounded-full bg-gray-100 flex justify-center items-center hover:bg-gray-300 cursor-pointer transition duration-500 ease-in-out hover:scale-125">
-                    <FiCamera color="grey" size={20} />
+                    <p className="font-Rubik_Bold text-xl text-green-500">{getintials()}</p>
                 </div>
             </div>
 

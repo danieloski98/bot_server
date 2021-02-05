@@ -9,6 +9,7 @@ import { FiTrash2 } from 'react-icons/fi'
 import { useMutation } from 'react-query';
 import * as axios from 'axios';
 import { URL } from '../../../types/Url'
+import useAdminDetails from '../../../Hooks/useAdminDetails';
 
 interface IProps {
     loading: boolean;
@@ -41,6 +42,7 @@ const LoadingModal = (props: IModalProps) => {
 export default function AdminsTables(props: IProps) {
     const [loading, setLoading] = React.useState(false);
     const [ email, setEmail] = React.useState('');
+    const details = useAdminDetails();
 
     const Mutation = useMutation(async (value: string) => {
         const request = await axios.default.delete(`${URL}/admin/${value}`);
@@ -116,6 +118,11 @@ export default function AdminsTables(props: IProps) {
                                                 <Th>User</Th>
                                                 <Th>Email Address</Th>
                                                 <Th isNumeric>Role</Th>
+                                                {
+                                                    details.role === 1 && (
+                                                        <Th isNumeric>Action</Th>
+                                                    )
+                                                }
                                             </Tr>
                                         </Thead>
                                         <Tbody>
@@ -125,8 +132,10 @@ export default function AdminsTables(props: IProps) {
                                                         <Td className="text-xs font-Rubik_Regular">{admin.firstname} {admin.lastname}</Td>
                                                         <Td className="text-xs font-Rubik_Regular">{admin.email}</Td>
                                                         <Td textAlign="right" className="text-xs font-Rubik_Regular">{ admin.role === 1 ? 'Super Admin' : 'Admin'}</Td>
-                                                        <Td>
-                                                            <FiTrash2 color='red' size={15} onClick={() => deleteAdmin(admin.id, admin.email)} />
+                                                        <Td textAlign="center">
+                                                            {details.role === 1 && (
+                                                                <FiTrash2 color='red' className="cursor-pointer" title={`delete ${admin.firstname}`} size={15} onClick={() => deleteAdmin(admin.id, admin.email)} />
+                                                            )}
                                                         </Td>
                                                     </Tr>
                                                 ))

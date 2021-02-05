@@ -7,9 +7,11 @@ import * as axios from 'axios';
 import { useMutation, } from 'react-query';
 import { IReturnType } from '../../../types/ReturnType'
 import {URL} from '../../../types/Url'
+import useAdminDetails from '../../../Hooks/useAdminDetails'
 
 export default function ListingCard(props: { item: IListing}) {
     const [showModal, setShowModal] = React.useState(false);
+    const details = useAdminDetails();
 
     const Mutation = useMutation(async(id: String) => {
         const request = await axios.default.delete(`${URL}/listings/${id}`);
@@ -44,14 +46,18 @@ export default function ListingCard(props: { item: IListing}) {
                     <EditListing item={props.item} closeModal={closeModal} showModal={showModal} />
                     <div className="flex justify-between">
                         <p className="font-Rubik_Regular bg-green-300 p-1 text-green-700 text-xs rounded">{props.item.service_type}</p>
-                        <Menu size="sm" colorScheme="teal" placement="bottom-start">
-                            <MenuButton> <FiMoreVertical color="black" size={20} /></MenuButton>
-                            <MenuList className="w-10" size="md">
-                                <MenuItem icon={<FiEdit color="grey" size={15} />} command="Edit" checked onClick={() => setShowModal(true)} commandSpacing={0} iconSpacing={2} />
-                                
-                                <MenuItem icon={<FiTrash2 color="red" size={15} />} command="Delete" commandSpacing={0} iconSpacing={2} onClick={submit} />
-                            </MenuList>
-                        </Menu>
+                        {
+                            details.role === 1 && (
+                                <Menu size="sm" colorScheme="teal" placement="bottom-start">
+                                    <MenuButton> <FiMoreVertical color="black" size={20} /></MenuButton>
+                                    <MenuList className="w-10" size="md">
+                                        <MenuItem icon={<FiEdit color="grey" size={15} />} command="Edit" checked onClick={() => setShowModal(true)} commandSpacing={0} iconSpacing={2} />
+                                        
+                                        <MenuItem icon={<FiTrash2 color="red" size={15} />} command="Delete" commandSpacing={0} iconSpacing={2} onClick={submit} />
+                                    </MenuList>
+                                </Menu>
+                            )
+                        }
                     </div>
                     <p className="text-lg font-Rubik-Bold font-bold mt-2">{props.item.business_name}</p>
 

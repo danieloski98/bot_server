@@ -8,6 +8,7 @@ import { EmailModule } from './modules/email/email.module';
 import { ServiceTypeModule } from './routes/service-type/service-type.module';
 import { ZipCodeModule } from './routes/zip-code/zip-code.module';
 import { StatesModule } from './routes/states/states.module';
+import { StatsModule } from './routes/stats/stats.module';
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import { StatesModule } from './routes/states/states.module';
     EmailModule,
     ServiceTypeModule,
     ZipCodeModule,
-    StatesModule
+    StatesModule,
+    StatsModule
   ],
   controllers: [AppController],
   providers: [AppService],

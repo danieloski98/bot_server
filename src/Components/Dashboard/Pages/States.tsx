@@ -10,12 +10,13 @@ export const IconsHolder = (props) => <div className="flex items-center h-full "
 
 export default function States() {
     const [states, setStates] = React.useState([]);
-    const {isLoading, data, refetch} = useQuery('Approvedlistings',() => getStates());
+    const {isLoading, data} = useQuery('Approvedlistings',() => getStates());
     console.log(data);
 
     React.useEffect(() => {
         // setTotalRequest(requests.length)
         if (data !== undefined) {
+            console.log(data.data);
             setStates(prev => [...data.data])
         }
     }, [data, isLoading]);

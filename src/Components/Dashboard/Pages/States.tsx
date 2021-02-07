@@ -57,7 +57,7 @@ export default function States() {
                             states === undefined ? <p></p> :
                             (
                                 states.map((item, index) => (
-                                    <MemoryCard type="Service" key={index} item={item.name} />
+                                    <MemoryCard type="Location" key={index} item={item.name} />
                                 ))
                             )
                         }

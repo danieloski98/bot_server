@@ -1,13 +1,27 @@
 import React from 'react'
-import { InputGroup, Input, InputLeftElement } from '@chakra-ui/react'
+import { InputGroup, Input, InputLeftElement, Spinner } from '@chakra-ui/react'
 import { FiLock, FiSearch } from 'react-icons/fi'
 import MemoryCard from '../Components/MemoryCard'
+import { useQuery } from 'react-query';
+import {  getStates } from '../Functions/getStates';
+
 
 export const IconsHolder = (props) => <div className="flex items-center h-full ">{props.children}</div>;
 
 export default function States() {
+    const [states, setStates] = React.useState([]);
+    const {isLoading, data, refetch} = useQuery('Approvedlistings',() => getStates());
+    console.log(data);
+
+    React.useEffect(() => {
+        // setTotalRequest(requests.length)
+        if (data !== undefined) {
+            setStates(prev => [...data.data])
+        }
+    }, [data, isLoading]);
+
     return (
-        <div className="w-full h-auto rounded bg-white p-8 flex flex-col">
+        <div className="w-full h-auto rounded overflow-auto bg-white p-8 flex flex-col">
 
             <div className="flex justify-between">
 
@@ -30,18 +44,21 @@ export default function States() {
                 </p>
             </div>
 
-            <div className="w-3/4  h-full grid grid-cols-2 gap-3 mt-10 ">
-                <MemoryCard type="Location" />
-                <MemoryCard type="Location" />
-                <MemoryCard type="Location" />
-                <MemoryCard type="Location" />
-                <MemoryCard type="Location" />
-                <MemoryCard type="Location" />
-                <MemoryCard type="Location" />
-                <MemoryCard type="Location" />
-                <MemoryCard type="Location" />
-                <MemoryCard type="Location" />
-            </div>
+            {
+                isLoading ? (
+                    <div className="flex-1 flex justify-center items-center pt-12">
+                        <Spinner color="green.500" size="lg" />
+                    </div>
+                ) : (
+                    <div className="w-2/4  h-full grid grid-cols-2 gap-3 mt-10 ">
+                        {
+                            states.map((item, index) => (
+                                <MemoryCard type="Service" key={index} item={item.name} />
+                            ))
+                        }
+                    </div>
+                )
+            }
 
         </div>
     )

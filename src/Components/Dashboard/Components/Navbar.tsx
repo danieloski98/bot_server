@@ -2,6 +2,8 @@ import React from 'react'
 import { InputGroup, InputRightElement, InputLeftElement, Input } from '@chakra-ui/react';
 import { FiSearch } from 'react-icons/fi'
 import useDetails from '../../../Hooks/useAdminDetails';
+import { useHistory } from 'react-router-dom'
+import useSearch from '../../../Hooks/useSearch'
 
 
 export const IconsHolder = (props) => <div className="flex items-center h-full ">{props.children}</div>;
@@ -36,12 +38,19 @@ const ProfileChip = () => {
 }
 
 export default function Navbar() {
+    const history = useHistory();
+    const { value, onChange } = useSearch();
+    const onpress = (e) => {
+        if (e.key === 'Enter') {
+            history.push('/dashboard/search')
+        }
+    }
     return (
-        <section className="w-full pl-10 pr-12 h-20 shadow-sm bg-white flex items-center justify-between">
+        <section className="w-full pl-10 pr-12 h-20 z-10 shadow-md bg-white flex items-center justify-between">
             <div className="w-3/5">
                 <InputGroup>
                     <InputLeftElement children={<IconsHolder><FiSearch size={20} color="#067E72" /></IconsHolder>}></InputLeftElement>
-                    <Input variant="filled" placeholder="search"/>
+                    <Input variant="filled" placeholder="search" onKeyUp={onpress} onChange={(e) => onChange(e.target.value)} value={value} />
                     <InputRightElement children={<SearchBtn />}></InputRightElement>
                 </InputGroup>
             </div>

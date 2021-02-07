@@ -1,5 +1,6 @@
 import React from 'react'
 
+function change(item: string): void {}
 export interface IAdmin {
     id: string;
     token: string;
@@ -7,12 +8,14 @@ export interface IAdmin {
     firstname: string;
     lastname: string;
     role: number;
+    search: string;
     setId: Function;
     setToken: Function;
     setEmail: Function;
     setFirstname: Function;
     setLastname: Function;
     setRole: Function;
+    setSearch: typeof change;
 }
 
 let str: IAdmin;
@@ -26,9 +29,10 @@ export default function AdminDetailsContext(props) {
     const [firstname, setFirstname] = React.useState('');
     const [lastname, setLastname] = React.useState('');
     const [role, setRole] = React.useState(0);
+    const [search, setSearch] = React.useState('');
 
     return (
-        <AdminContext.Provider value={{ id, token, email, firstname, lastname, role, setId, setToken, setEmail, setFirstname, setLastname, setRole}}>
+        <AdminContext.Provider value={{ id, token, email, firstname, lastname, role, search, setId, setToken, setEmail, setFirstname, setLastname, setRole, setSearch }}>
             { props.children }
         </AdminContext.Provider>
     )

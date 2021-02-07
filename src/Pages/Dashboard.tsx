@@ -17,6 +17,7 @@ import SettingsPage from '../Components/Dashboard/Pages/Settings'
 import StatesPage from '../Components/Dashboard/Pages/States'
 import ZipCodes from '../Components/Dashboard/Pages/ZipCode'
 import ServiceType from '../Components/Dashboard/Pages/ServiceType'
+import Search from '../Components/Dashboard/Pages/SearchResult'
 
 
 export default function Dashboard() {
@@ -68,11 +69,11 @@ export default function Dashboard() {
             </section>
 
             <section className="flex-1 bg-gray-100 flex flex-col overflow-hidden">
-                <div className="w-full h-20 s">
+                <div className="w-full h-20 s z-20">
                     <Navbar />
                 </div>
 
-                <div className="flex-1 flex items-center justify-center p-8 overflow-y-scroll">
+                <div className="flex-1 flex z-0 items-center justify-center p-8 overflow-y-scroll">
                     <div className="w-full h-full">
                         <Switch>
                             <Route path="/dashboard/" exact component={DashboardPage} />
@@ -82,6 +83,7 @@ export default function Dashboard() {
                             <Route path="/dashboard/states" component={StatesPage} />
                             {/* <Route path="/dashboard/zipcode" component={ZipCodes} /> */}
                             <Route path="/dashboard/services" component={ServiceType} />
+                            <Route path="/dashboard/search" component={Search} />
                         </Switch>
                     </div>
                 </div>

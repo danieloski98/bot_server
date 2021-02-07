@@ -97,9 +97,11 @@ export default function Request() {
                                     <img src={Empty} alt="empty" width="250" />
                                     <h1 className="mt-5 font-Rubik-medium text-lg text-center">No request found!</h1>
                                 </div>):
-                                (<div className="w-full grid grid-cols-3 gap-3">
+                                (<div className="w-full flex flex-wrap">
                                     {requests.map((item, index) => (
-                                        <RequestCard item={item} key={index} />
+                                        <div className="mr-6 mb-10">
+                                            <RequestCard item={item} key={index} />
+                                        </div>
                                     ))}
                                 </div>)
                             }

@@ -10,17 +10,18 @@ export const IconsHolder = (props) => <div className="flex items-center h-full "
 
 export default function States() {
     const [states, setStates] = React.useState([]);
-    const {isLoading, data} = useQuery('Approvedlistings',() => getStates());
+    const {isLoading, data} = useQuery('states',() => getStates());
     console.log(data);
 
     React.useEffect(() => {
         // setTotalRequest(requests.length)
         if (data !== undefined) {
             console.log(data.data);
-            setStates(prev => [...data.data])
+            setStates(prev => data.data);
+            
         }
     }, [data, isLoading]);
-
+    console.log(states);
     return (
         <div className="w-full h-auto rounded overflow-auto bg-white p-8 flex flex-col">
 
@@ -53,9 +54,12 @@ export default function States() {
                 ) : (
                     <div className="w-2/4  h-full grid grid-cols-2 gap-3 mt-10 ">
                         {
-                            states.map((item, index) => (
-                                <MemoryCard type="Service" key={index} item={item.name} />
-                            ))
+                            states === undefined ? <p></p> :
+                            (
+                                states.map((item, index) => (
+                                    <MemoryCard type="Service" key={index} item={item.name} />
+                                ))
+                            )
                         }
                     </div>
                 )

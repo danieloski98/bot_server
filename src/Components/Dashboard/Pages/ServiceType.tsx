@@ -9,16 +9,17 @@ export const IconsHolder = (props) => <div className="flex items-center h-full "
 
 export default function ServiceType() {
     const [services, setServices] = React.useState([]);
-    const {isLoading, data } = useQuery('Approvedlistings',() => getServices());
+    const {isLoading, data } = useQuery('services',() => getServices());
     console.log(data);
 
     React.useEffect(() => {
         // setTotalRequest(requests.length)
         if (data !== undefined) {
-            setServices(prev => [...data.data])
+            setServices(prev => data.data);
+            
         }
     }, [data, isLoading]);
-
+    console.log(services);
     return (
         <div className="w-full h-auto rounded bg-white p-8 flex flex-col">
 
@@ -51,9 +52,11 @@ export default function ServiceType() {
                 ) : (
                     <div className="w-2/4  h-full grid grid-cols-2 gap-3 mt-10 ">
                         {
-                            services.map((item, index) => (
-                                <MemoryCard type="Service" key={index} item={item.name} />
-                            ))
+                            services === undefined ? <p></p> : (
+                                services.map((item, index) => (
+                                    <MemoryCard type="Service" key={index} item={item.name} />
+                                ))
+                            )
                         }
                     </div>
                 )

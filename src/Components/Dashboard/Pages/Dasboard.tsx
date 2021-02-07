@@ -14,7 +14,7 @@ export default function Dasboard() {
     const [latest, setLatest] = React.useState([]);
     const history = useHistory();
 
-    const {isLoading, data} = useQuery('Approvedlistings',() => getStats());
+    const {isLoading, data} = useQuery('stats',() => getStats());
 
     React.useEffect(() => {
         // setTotalRequest(requests.length)
@@ -24,7 +24,7 @@ export default function Dasboard() {
             setRequests(data.data.request);
             const arr: IListing[] = data.data['latest'];
             console.log(arr);
-            setLatest(prev => [...arr]);
+            setLatest(prev => arr);
         }
     }, [data, isLoading]);
     return (
@@ -56,17 +56,22 @@ export default function Dasboard() {
                        <Spinner color="green.500" size="lg" />
                    </div>
                ) : (
-                <div className="recent flex flex-wrap justify-between mt-6">
+                
 
-                {
-                    latest.map((item) => (
-                        <div className="mr-6 mb-10">
-                            <ListingCard item={item} />
-                        </div>
-                    ))
-                }
+               <div className="w-full">
+                        {
+                            latest === undefined  ? <p></p> : <div className="recent flex flex-wrap justify-between mt-6">
+                                {
+                                     latest.map((item) => (
+                                        <div className="mr-6 mb-10">
+                                            <ListingCard item={item} />
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                        }
+               </div>
  
-             </div>
                )
            }
 

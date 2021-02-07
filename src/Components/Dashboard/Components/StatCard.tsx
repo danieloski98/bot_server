@@ -16,7 +16,7 @@ export default function StatCard(props: IProps) {
         }, 5000)
     }, [])
     return (
-        <div className="w-72 h-24 rounded-lg bg-gray-100 p-5 flex flex-col">
+        <div className="w-72 h-24 rounded-lg bg-gray-100 p-5 flex flex-col mb-6">
                     <div className="flex justify-between">
                         <p className="font-Rubik_Regular text-sm">{props.header}</p>
                         <Help />

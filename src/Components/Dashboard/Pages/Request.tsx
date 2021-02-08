@@ -1,5 +1,5 @@
 import React from 'react'
-import { Spinner } from '@chakra-ui/react'
+import { Skeleton, Spinner } from '@chakra-ui/react'
 import RequestCard from '../../Dashboard/Components/RequestCard'
 import { IListing } from '../../../types/listings';
 import { useQuery } from 'react-query';
@@ -88,7 +88,10 @@ export default function Request() {
             <div className=" pb-10 flex-1">
                     {isLoading ?
                         (<div className="w-full h-full flex justify-center items-centered">
-                            <Spinner color="green.500" size="lg" />
+                            <Skeleton height="150px" width="200px" className="mr-6 mb-6" />
+                            <Skeleton height="150px" width="200px" className="mr-6 mb-6" />
+                            <Skeleton height="150px" width="200px" className="mr-6 mb-6" />
+                            <Skeleton height="150px" width="200px" className="mr-6 mb-6" />
                         </div>)
                         :
                         (<div>

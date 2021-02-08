@@ -1,16 +1,16 @@
 import React from 'react'
 import { FiX } from 'react-icons/fi'
-import { Spinner } from '@chakra-ui/react'
+import { Spinner, Skeleton } from '@chakra-ui/react'
 import { useHistory } from 'react-router-dom'
 import useSearch from '../../../Hooks/useSearch'
 
 const ShowSpinner = () => {
     return (
-        <div className="w-full h-full flex justify-center items-center">
-            <div className="flex flex-col items-center">
-                <Spinner size="lg" color="green.500" />
-                <p className="font-Rubik-Medium">Searching...</p>
-            </div>
+        <div className="w-full h-full flex flex-wrap justify-between items-center">
+           <Skeleton height="150px" width="200px" className="mr-6 mb-6" />
+           <Skeleton height="150px" width="200px" className="mr-6 mb-6" />
+           <Skeleton height="150px" width="200px" className="mr-6 mb-6" />
+           <Skeleton height="150px" width="200px" className="mr-6 mb-6" />
         </div>
     )
 }

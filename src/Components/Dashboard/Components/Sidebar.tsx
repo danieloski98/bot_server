@@ -72,7 +72,7 @@ export default function Sidebar() {
 
             <div className="flex h-10 items-center px-2  rounded mb-2 ml-3">
                 <Messenger />
-                <p className="text-gray-800 text-xs font-Rubik_Regular ml-4">Messenger</p>
+                <a href="https://m.me/singlemomnetwork" rel="noreferrer" target="_blank" className="text-gray-800 text-xs font-Rubik_Regular ml-4">Messenger</a>
             </div>
 
             <h1 className="text-green-600 font-Rubik_Regular text-sm ml-2 mb-2">MANAGEMENT</h1>

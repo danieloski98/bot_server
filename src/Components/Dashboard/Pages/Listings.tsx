@@ -1,7 +1,7 @@
 import { } from '@chakra-ui/react'
 import React from 'react'
 import ListingCard from '../Components/ListingCard'
-import { Spinner } from '@chakra-ui/react'
+import { Spinner, Skeleton } from '@chakra-ui/react'
 import { IListing } from '../../../types/listings';
 import { useQuery } from 'react-query';
 import {  getApproved } from '../Functions/GetListings';
@@ -93,14 +93,17 @@ export default function Listings() {
             <div className=" pb-10 flex-1">
                     {isLoading ?
                         (<div className="w-full h-full flex justify-center items-centered">
-                            <Spinner color="green.500" size="lg" />
+                            <Skeleton height="150px" width="200px" className="mr-6 mb-6" />
+                            <Skeleton height="150px" width="200px" className="mr-6 mb-6" />
+                            <Skeleton height="150px" width="200px" className="mr-6 mb-6" />
+                            <Skeleton height="150px" width="200px" className="mr-6 mb-6" />
                         </div>)
                         :
                         (<div>
                             {requests.length < 1 ?
                                 (<div className="w-full flex flex-col items-center pt-10">
                                     <img src={Empty} alt="empty" width="250" />
-                                    <h1 className="mt-5 font-Rubik-medium text-lg text-center">No request found!</h1>
+                                    <h1 className="mt-5 font-Rubik-medium text-lg text-center">No Listings found!</h1>
                                 </div>):
                                 (<div className="w-full flex flex-wrap">
                                     {requests.map((item, index) => (

@@ -207,7 +207,7 @@ export class CrudService {
             if (listing.length < 1) {
                 return Return({
                     error: true,
-                    statusCode: 500,
+                    statusCode: 400,
                     errorMessage: 'Listing not found',
                 });
             }else if (listing[0].approved) {
@@ -324,6 +324,67 @@ export class CrudService {
                      successMessage: 'saved successfully'
                  })
              }
+         } catch (error) {
+            return Return({
+                error: true,
+                statusCode: 500,
+                errorMessage: 'Internal server error',
+                trace: error,
+            });
+         }
+     }
+
+     async getListing2AtATime(offset: number, body: any): Promise<IReturnType> {
+         try {
+             this.logger.log(body);
+             const listings = await this.listingRepo.find({ where: {approved: false, ...body}});
+             if (listings.length < 1) {
+                 return Return({
+                     error: false,
+                     statusCode: 200,
+                     successMessage: 'No Listing found!'
+                 })
+             }else if (listings.length > 0 ) {
+                 // check the size of the array
+                 const size = listings.length;
+                 if (offset > size) {
+                     return Return({
+                         error: false,
+                         statusCode: 200,
+                         successMessage: 'Listing found',
+                         data: listings,
+                     })
+                 }else {
+                     if (listings[offset + 2] === null || listings[offset + 2] === undefined || listings[offset] === undefined) {
+
+                         const data = listings.slice(offset - 1);
+                         const remaining =listings.slice(offset + 2).length;
+
+                         return Return({
+                            error: false,
+                            statusCode: 200,
+                            successMessage: data.length < 1 ? 'No listing found':'Listings found',
+                            data: {
+                                remaining,
+                                data,
+                            }
+                        })
+                     }
+                     const data = listings.slice(offset, offset + 2);
+                     const remaining =listings.slice(offset + 2).length;
+
+                     return Return({
+                         error: false,
+                         statusCode: 200,
+                         successMessage: data.length < 1 ? 'No listing found':'Listings found',
+                         data: {
+                             remaining,
+                             data,
+                         }
+                     })
+                 }
+             }
+             
          } catch (error) {
             return Return({
                 error: true,

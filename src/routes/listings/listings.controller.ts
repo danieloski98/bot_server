@@ -170,7 +170,14 @@ export class ListingsController {
         res.status((await result).statusCode).send(result);
     }
 
-
+    @Get('bot/:offset')
+    @ApiParam({ name: 'offset', type: Number, description: 'The offset for pagination'})
+    @ApiQuery({ description: 'the search parameter' })
+    async botRoute(@Res() res: Response, @Query() query: any, @Param() param: number) {
+        const offset = parseInt(param['offset']);
+        const result = await this.crudService.getListing2AtATime(offset, query);
+        res.status(result.statusCode).send(result);
+    }
 
 
 }

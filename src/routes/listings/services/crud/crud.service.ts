@@ -334,10 +334,14 @@ export class CrudService {
          }
      }
 
+
      async getListing2AtATime(offset: number, body: any): Promise<IReturnType> {
          try {
+
              this.logger.log(body);
-             const listings = await this.listingRepo.find({ where: {approved: false, ...body}});
+
+             const listings = await this.listingRepo.find({ where: {approved: true, ...body}});
+             
              if (listings.length < 1) {
                  return Return({
                      error: false,

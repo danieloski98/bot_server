@@ -354,9 +354,9 @@ export class CrudService {
                  if (offset > size) {
                      return Return({
                          error: false,
-                         statusCode: 200,
-                         successMessage: 'Listing found',
-                         data: listings,
+                         statusCode: listings.splice(offset - 1).length < 1 ? 400:200,
+                         successMessage: listings.splice(offset - 1).length < 1 ? 'no listing found': 'Listing found',
+                         data: listings.slice(offset - 1).length < 1 ? undefined:listings.slice(offset - 1),
                      })
                  }else {
                      if (listings[offset + 2] === null || listings[offset + 2] === undefined || listings[offset] === undefined) {
@@ -366,9 +366,9 @@ export class CrudService {
 
                          return Return({
                             error: false,
-                            statusCode: 200,
+                            statusCode: data.length < 1? 400:200,
                             successMessage: data.length < 1 ? 'No listing found':'Listings found',
-                            data: {
+                            data: data.length < 1 ? undefined:{
                                 remaining,
                                 data,
                             }
@@ -379,12 +379,12 @@ export class CrudService {
 
                      return Return({
                          error: false,
-                         statusCode: 200,
+                         statusCode: data.length < 1 ? 400:200,
                          successMessage: data.length < 1 ? 'No listing found':'Listings found',
-                         data: {
-                             remaining,
-                             data,
-                         }
+                         data:  data.length < 1 ? undefined:{
+                            remaining,
+                            data,
+                        }
                      })
                  }
              }

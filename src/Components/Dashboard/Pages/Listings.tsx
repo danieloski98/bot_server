@@ -8,6 +8,7 @@ import {  getApproved } from '../Functions/GetListings';
 import Empty  from '../../../assets/icons/notfound.svg';
 import AddListingModal from '../Components/Modals/AddListingModal';
 import { FiRefreshCw } from 'react-icons/fi'
+import { IReturnType } from '../../../types/ReturnType';
 
 
 
@@ -17,20 +18,24 @@ export default function Listings() {
     const [remaining, setRemaining] = React.useState(0);
     const [showModal, setShowModal] = React.useState(false);
 
-    const {isLoading, data, refetch} = useQuery(['Approvedlistings', offset],() => getApproved(offset));
+    const {isLoading, data, refetch} = useQuery(['Approvedlistings', offset],() => getApproved(offset), {
+        onSuccess: (data: IReturnType) => {
+            if (data !== undefined) {
+                setRequests(prev => [...data.data.listings])
+                if (data.data.remaining > 0) {
+                    setRemaining(data.data.remaining);
+                }else {
+                    setRemaining(0);
+                }
+            }
+        }
+    });
     console.log(data);
 
 
     React.useEffect(() => {
         // setTotalRequest(requests.length)
-        if (data !== undefined) {
-            setRequests(prev => [...data.data.listings])
-            if (data.data.remaining > 0) {
-                setRemaining(data.data.remaining);
-            }else {
-                setRemaining(0);
-            }
-        }
+       
     }, [data, isLoading]);
 
 
@@ -105,7 +110,7 @@ export default function Listings() {
                                     <img src={Empty} alt="empty" width="250" />
                                     <h1 className="mt-5 font-Rubik-medium text-lg text-center">No Listings found!</h1>
                                 </div>):
-                                (<div className="w-full flex flex-wrap">
+                                (<div className="w-full grid grid-cols-3">
                                     {requests.map((item, index) => (
                                         <div className="mr-6 mb-10">
                                             <ListingCard item={item} key={index} />

@@ -85,7 +85,7 @@ export default function Request() {
                 </div>
             </div>
 
-            <div className=" pb-10 flex-1">
+            <div className="w-full pb-10 flex-1">
                     {isLoading ?
                         (<div className="w-full h-full flex justify-center items-centered">
                             <Skeleton height="150px" width="200px" className="mr-6 mb-6" />
@@ -94,15 +94,15 @@ export default function Request() {
                             <Skeleton height="150px" width="200px" className="mr-6 mb-6" />
                         </div>)
                         :
-                        (<div>
+                        (<div className="w-full">
                             {requests.length < 1 ?
                                 (<div className="w-full flex flex-col items-center pt-10">
                                     <img src={Empty} alt="empty" width="250" />
                                     <h1 className="mt-5 font-Rubik-medium text-lg text-center">No request found!</h1>
                                 </div>):
-                                (<div className="w-full flex flex-wrap">
+                                (<div className="w-full grid grid-cols-3">
                                     {requests.map((item, index) => (
-                                        <div className="mr-6 mb-10">
+                                        <div className="mr-6 mb-10 grid grid-cols-3">
                                             <RequestCard item={item} key={index} />
                                         </div>
                                     ))}

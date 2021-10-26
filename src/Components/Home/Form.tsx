@@ -16,7 +16,7 @@ export const IconsHolder = (props) => <div className="flex items-center h-full "
 // validation schema
 const validationSchema = yup.object({
     email: yup.string().email('Invalid Email').required('this field is required'),
-    password: yup.string().required('Your password is required').min(10, 'A minimium of 10 alpha-numeric characters.')
+    password: yup.string().required('Your password is required').min(8, 'A minimium of 10 alpha-numeric characters.')
 });
 
 export default function Form() {

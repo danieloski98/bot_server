@@ -60,7 +60,7 @@ export default function Dasboard() {
 
                <div className="w-full">
                         {
-                            latest === undefined  ? <p></p> : <div className="recent flex flex-wrap justify-between mt-6">
+                            latest === undefined  ? <p></p> : <div className="recent grid grid-cols-3 justify-between mt-6">
                                 {
                                      latest.map((item) => (
                                         <div className="mr-6 mb-10">

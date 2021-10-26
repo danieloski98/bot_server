@@ -48,11 +48,11 @@ export default function Navbar() {
     return (
         <section className="w-full pl-10 pr-12 h-20 z-10 shadow-md bg-white flex items-center justify-between">
             <div className="w-3/5">
-                <InputGroup>
+                {/* <InputGroup>
                     <InputLeftElement children={<IconsHolder><FiSearch size={20} color="#067E72" /></IconsHolder>}></InputLeftElement>
                     <Input variant="filled" placeholder="search" onKeyUp={onpress} onChange={(e) => onChange(e.target.value)} value={value} />
                     <InputRightElement children={<SearchBtn />}></InputRightElement>
-                </InputGroup>
+                </InputGroup> */}
             </div>
 
             <div className="flex-1 pl-10">
